@@ -21,6 +21,7 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
         setLoading(true);
 
         try {
+            // POST a la función serverless en Vercel: /api/dni
             const res = await fetch("/api/dni", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -33,11 +34,21 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
             }
 
             const json = await res.json();
-            const data = json.data ?? json;
-            const nombresApi = data.nombres ?? data.nombre_completo ?? data.nombreCompleto ?? "";
-            const apP = data.apellido_paterno ?? data.apellidoPaterno ?? "";
-            const apM = data.apellido_materno ?? data.apellidoMaterno ?? "";
-            setNombres(nombresApi);
+            // apiperu.dev devuelve usualmente un objeto con { data: {...} } o directamente {...}
+            const payload = json.data ?? json;
+
+            // Normaliza los posibles campos devueltos por distintas APIs
+            const nombresApi =
+                payload.nombres ??
+                payload.nombre ??
+                payload.nombre_completo ??
+                payload.nombreCompleto ??
+                payload.name ??
+                "";
+            const apP = payload.apellido_paterno ?? payload.apellidoPaterno ?? payload.apellidoP ?? "";
+            const apM = payload.apellido_materno ?? payload.apellidoMaterno ?? payload.apellidoM ?? "";
+
+            setNombres(String(nombresApi).trim());
             setApellidos([apP, apM].filter(Boolean).join(" ").trim());
         } catch (e: any) {
             console.error("Error buscarPorDni:", e);
@@ -71,8 +82,13 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
     };
 
     return (
-        <div className="bg-[var(--bg-main)] text-[var(--text-main)] rounded-xl shadow-lg p-6 w-full max-h-[75vh] overflow-auto" style={{ borderRadius: 14 }}>
-            <h3 className="text-lg font-semibold bg-[var(--accent-yellow)] text-black px-6 py-3 -mx-6 mb-4 rounded-t-xl">Registrar cliente</h3>
+        <div
+            className="bg-[var(--bg-main)] text-[var(--text-main)] rounded-xl shadow-lg p-6 w-full max-h-[75vh] overflow-auto"
+            style={{ borderRadius: 14 }}
+        >
+            <h3 className="text-lg font-semibold bg-[var(--accent-yellow)] text-black px-6 py-3 -mx-6 mb-4 rounded-t-xl">
+                Registrar cliente
+            </h3>
 
             <div className="space-y-3">
                 <label className="flex flex-col">
@@ -99,7 +115,14 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
                             }}
                         >
                             {loading ? (
-                                <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg
+                                    className="animate-spin"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
                                     <circle cx="12" cy="12" r="10" stroke="#93C5FD" strokeWidth="3" strokeLinecap="round" strokeDasharray="31.4" />
                                 </svg>
                             ) : (
