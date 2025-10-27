@@ -1,0 +1,67 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+:root {
+  /* Fondos */
+  --bg-main: #fdf6f9;
+  --bg-card: #ffffff;
+
+  /* Pasteles suaves */
+  --accent-pink: #f8cdd8;
+  --accent-purple: #d8c4f8;
+  --accent-blue: #cde7f8;
+  --accent-green: #d4f8cd;
+
+  /* Texto */
+  --text-main: #4a4a4a;
+  --text-muted: #888;
+}
+
+/* Botones circulares con hover y transición */
+.btn-icon {
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.btn-icon:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.1));
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
