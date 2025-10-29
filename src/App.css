@@ -65,3 +65,181 @@
 .read-the-docs {
   color: #888;
 }
+
+/* ===== Sidebar pastel purple & visible active bubble ===== */
+.layout-root {
+  display: flex;
+  min-height: 100vh;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+    /* collapsed state: keep avatar visible, hide only brand and labels (not sidebar-bottom) */
+    .layout-root.sidebar-collapsed .sidebar-root {
+        width: 76px;
+    }
+
+        /* hide brand and labels only; keep sidebar-bottom visible */
+        .layout-root.sidebar-collapsed .sidebar-root .sidebar-brand,
+        .layout-root.sidebar-collapsed .sidebar-root .label {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-6px);
+        }
+
+        /* Ensure sidebar-bottom remains visible when collapsed */
+        .layout-root.sidebar-collapsed .sidebar-root .sidebar-bottom {
+            opacity: 1;
+            pointer-events: auto;
+            transform: none;
+        }
+
+    /* Hide just the user text (email) when collapsed; keep avatar visible and centered */
+    .layout-root.sidebar-collapsed .user-meta {
+        display: none !important;
+    }
+
+    /* Make sure avatar remains visible and centered in the bottom area */
+    .layout-root.sidebar-collapsed .sidebar-user {
+        justify-content: center;
+        padding: 8px 0;
+    }
+
+    .layout-root.sidebar-collapsed .avatar {
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+    }
+
+/* Sidebar root: pastel purple background to harmonize */
+.sidebar-root {
+  width: 260px;
+  background: linear-gradient(180deg, #f3ecff 0%, #efe9ff 100%); /* suave morado pastel */
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 22px rgba(12, 16, 30, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: width 0.28s cubic-bezier(.2,.9,.3,1), transform 0.28s;
+  flex-shrink: 0;
+  border: 1px solid rgba(99,102,241,0.06);
+}
+
+/* top area with toggle */
+.sidebar-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sidebar-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(99,102,241,0.06);
+  color: #6b46c1;
+}
+.sidebar-toggle:hover { transform: scale(1.04); }
+
+/* brand area */
+.sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
+.sidebar-brand strong { font-size: 0.95rem; color: #4b2f80; }
+.sidebar-brand small { font-size: 0.72rem; color: #6b46c1; opacity: 0.85; }
+
+/* nav */
+.sidebar-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 6px 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sidebar-item-wrapper { position: relative; }
+
+/* each item */
+.sidebar-item {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  overflow: visible;
+  transition: transform .18s ease, background .18s ease, color .18s;
+}
+.sidebar-item .icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: rgba(75,47,128,0.06);
+  color: #4b2f80;
+  transition: transform .16s ease;
+}
+.sidebar-item .label { white-space: nowrap; transition: opacity .18s, transform .18s; }
+
+.sidebar-item:hover {
+  transform: translateX(6px);
+  background: rgba(75,47,128,0.03);
+}
+.sidebar-item:hover .icon { transform: scale(1.06); }
+
+/* active bubble (motion layoutId) - color contrast para ser visible */
+.active-bubble {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 6px;
+  bottom: 6px;
+  background: linear-gradient(90deg, rgba(75,47,128,0.14), rgba(111,66,193,0.08));
+  border-radius: 10px;
+  z-index: -1;
+  box-shadow: 0 10px 24px rgba(111,66,193,0.06);
+  border: 1px solid rgba(111,66,193,0.08);
+}
+
+/* highlight active icon color & label color */
+.sidebar-item.active .icon { background: linear-gradient(90deg,#7c57d6,#6b46c1); color: white; }
+.sidebar-item.active .label { color: #3b1766; font-weight: 600; }
+
+/* bottom user */
+.sidebar-bottom { margin-top: auto; padding-top: 6px; border-top: 1px solid rgba(75,47,128,0.04); }
+.sidebar-user { display:flex; gap:10px; align-items:center; }
+.avatar { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:#fff; color:#6b46c1; font-weight:700; border: 1px solid rgba(75,47,128,0.06) }
+.user-meta .name { font-size:0.88rem; font-weight:600; }
+.user-meta .email { font-size:0.72rem; color:var(--text-muted); }
+
+/* main content grows */
+.layout-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* responsive tweak */
+@media (max-width: 880px) {
+  .sidebar-root { position: fixed; left: 12px; top: 12px; z-index: 60; }
+  .layout-main { padding-top: 88px; }
+}
+
