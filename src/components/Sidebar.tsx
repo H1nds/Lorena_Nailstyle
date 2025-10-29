@@ -1,5 +1,4 @@
 // src/components/Sidebar.tsx
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaReceipt, FaShoppingCart, FaUsers } from "react-icons/fa";
 
