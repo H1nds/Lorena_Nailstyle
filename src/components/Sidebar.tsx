@@ -35,7 +35,7 @@ export default function Sidebar({
         >
             <div className={`sidebar-top ${collapsed ? "collapsed-top" : ""}`}>
                 <button
-                    aria-label={collapsed ? "Abrir men˙ lateral" : "Cerrar men˙ lateral"}
+                    aria-label={collapsed ? "Abrir men√∫ lateral" : "Cerrar men√∫ lateral"}
                     onClick={onToggle}
                     className={`sidebar-toggle ${collapsed ? "collapsed-toggle" : ""}`}
                     title={collapsed ? "Abrir" : "Cerrar"}
@@ -45,11 +45,11 @@ export default function Sidebar({
 
                 <div className="sidebar-brand" aria-hidden={collapsed}>
                     <strong>Lorena Vera</strong>
-                    <small>Est· en tus manos</small>
+                    <small>Est√° en tus manos</small>
                 </div>
             </div>
 
-            <nav className="sidebar-nav" role="navigation" aria-label="NavegaciÛn principal">
+            <nav className="sidebar-nav" role="navigation" aria-label="Navegaci√≥n principal">
                 <ul>
                     {items.map((it) => {
                         const isActive = it.key === active;

@@ -14,7 +14,7 @@ export default function Layout({
     onSectionChange?: (k: NavKey) => void;
     userEmail?: string | null;
 }) {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const [active, setActive] = useState<NavKey>(initial);
 
     const handleNavigate = (k: NavKey) => {

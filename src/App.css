@@ -1,245 +1,422 @@
+/* =========================
+   src/App.css (reemplazar)
+   ========================= */
+
+/* Root / variables */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
 }
 
 :root {
-  /* Fondos */
-  --bg-main: #fdf6f9;
-  --bg-card: #ffffff;
-
-  /* Pasteles suaves */
-  --accent-pink: #f8cdd8;
-  --accent-purple: #d8c4f8;
-  --accent-blue: #cde7f8;
-  --accent-green: #d4f8cd;
-
-  /* Texto */
-  --text-main: #4a4a4a;
-  --text-muted: #888;
+    --bg-main: #fdf6f9;
+    --bg-card: #ffffff;
+    --accent-pink: #f8cdd8;
+    --accent-purple: #d8c4f8;
+    --accent-blue: #cde7f8;
+    --accent-green: #d4f8cd;
+    --text-main: #4a4a4a;
+    --text-muted: #888;
 }
 
-/* Botones circulares con hover y transición */
+/* Utilities */
 .btn-icon {
-  transition: transform 0.15s ease, filter 0.15s ease;
-}
-.btn-icon:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.1));
+    transition: transform 0.15s ease, filter 0.15s ease;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* ===== Sidebar pastel purple & visible active bubble ===== */
-.layout-root {
-  display: flex;
-  min-height: 100vh;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-    /* collapsed state: keep avatar visible, hide only brand and labels (not sidebar-bottom) */
-    .layout-root.sidebar-collapsed .sidebar-root {
-        width: 76px;
+    .btn-icon:hover {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 4px rgba(0,0,0,0.1));
     }
 
-        /* hide brand and labels only; keep sidebar-bottom visible */
-        .layout-root.sidebar-collapsed .sidebar-root .sidebar-brand,
-        .layout-root.sidebar-collapsed .sidebar-root .label {
-            opacity: 0;
-            pointer-events: none;
-            transform: translateX(-6px);
+/* Layout root and main */
+.layout-root {
+    display: flex;
+    min-height: 100vh;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.layout-main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Sidebar base */
+.sidebar-root {
+    width: 260px;
+    background: linear-gradient(180deg,#f3ecff 0%, #efe9ff 100%);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 8px 22px rgba(12,16,30,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+    border: 1px solid rgba(99,102,241,0.06);
+    transition: width .28s cubic-bezier(.2,.9,.3,1), transform .28s;
+    position: relative;
+    overflow: hidden; /* evita que la burbuja se vea por fuera al animar */
+}
+
+/* Top: toggle + brand */
+.sidebar-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    background: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(99,102,241,0.06);
+    color: #6b46c1;
+    transition: transform .16s ease, margin .18s ease;
+    margin: 6px 0; /* por defecto centrado en su contenedor; se ajusta en expandido/colapsado más abajo */
+}
+
+    .sidebar-toggle:hover {
+        transform: scale(1.04);
+    }
+
+.sidebar-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1;
+}
+
+    .sidebar-brand strong {
+        font-size: .95rem;
+        color: #4b2f80;
+    }
+
+    .sidebar-brand small {
+        font-size: .72rem;
+        color: #6b46c1;
+        opacity: .85;
+    }
+
+/* Nav list */
+.sidebar-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 6px 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-item-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+/* Items */
+.sidebar-item {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-main);
+    font-size: .95rem;
+    overflow: visible;
+    transition: transform .18s ease, background .18s ease, color .18s;
+    min-height: 48px;
+}
+
+    .sidebar-item .icon {
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9px;
+        background: rgba(75,47,128,0.06);
+        color: #4b2f80;
+        transition: transform .16s ease;
+        position: relative;
+        z-index: 2; /* iconos por encima de la burbuja */
+    }
+
+    .sidebar-item .label {
+        white-space: nowrap;
+        transition: opacity .18s, transform .18s;
+    }
+
+    .sidebar-item:hover {
+        transform: translateX(4px);
+        background: rgba(75,47,128,0.03);
+    }
+
+        .sidebar-item:hover .icon {
+            transform: scale(1.06);
         }
 
-        /* Ensure sidebar-bottom remains visible when collapsed */
-        .layout-root.sidebar-collapsed .sidebar-root .sidebar-bottom {
-            opacity: 1;
-            pointer-events: auto;
-            transform: none;
-        }
+    /* Active styles */
+    .sidebar-item.active .icon {
+        background: linear-gradient(90deg,#7c57d6,#6b46c1);
+        color: white;
+    }
 
-    /* Hide just the user text (email) when collapsed; keep avatar visible and centered */
-    .layout-root.sidebar-collapsed .user-meta {
+    .sidebar-item.active .label {
+        color: #3b1766;
+        font-weight: 600;
+    }
+
+/* Active bubble (default expanded) */
+.active-bubble {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    top: 6px;
+    bottom: 6px;
+    background: linear-gradient(90deg, rgba(75,47,128,0.14), rgba(111,66,193,0.08));
+    border-radius: 10px;
+    z-index: 0;
+    box-shadow: 0 10px 24px rgba(111,66,193,0.06);
+    border: 1px solid rgba(111,66,193,0.08);
+    transition: transform .18s cubic-bezier(.2,.9,.3,1), opacity .12s linear;
+    will-change: transform, left, top;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Bottom user */
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 6px;
+    border-top: 1px solid rgba(75,47,128,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    padding: 8px;
+    justify-content: flex-start;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #6b46c1;
+    font-weight: 700;
+    border: 1px solid rgba(75,47,128,0.06);
+    flex-shrink: 0;
+}
+
+.user-meta .email {
+    font-size: .72rem;
+    color: var(--text-muted);
+}
+
+/* =========================
+   Collapsed behavior & fixes
+   ========================= */
+
+/* collapsed width */
+.layout-root.sidebar-collapsed .sidebar-root {
+    width: 82px;
+    align-items: center;
+}
+
+    /* hide only brand and labels (keep bottom visible) */
+    .layout-root.sidebar-collapsed .sidebar-root .sidebar-brand,
+    .layout-root.sidebar-collapsed .sidebar-root .label {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-6px);
+    }
+
+    /* bottom must remain visible */
+    .layout-root.sidebar-collapsed .sidebar-root .sidebar-bottom {
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+    }
+
+/* hide just the user text, keep avatar visible and centered */
+.layout-root.sidebar-collapsed .user-meta {
+    display: none !important;
+}
+
+.layout-root.sidebar-collapsed .sidebar-user {
+    justify-content: center;
+    padding: 8px 0;
+}
+
+.layout-root.sidebar-collapsed .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: inline-flex;
+}
+
+/* Top adjustments: center icons & toggle when collapsed */
+.layout-root.sidebar-collapsed .sidebar-top {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding-top: 6px !important;
+    padding-bottom: 4px !important;
+}
+
+/* Toggle sizing in collapsed */
+.layout-root.sidebar-collapsed .sidebar-toggle {
+    margin: 0 !important;
+    width: 44px !important;
+    height: 44px !important;
+}
+
+/* Reduce gap between toggle and first icon */
+.layout-root.sidebar-collapsed .sidebar-nav {
+    padding-top: 6px !important;
+}
+
+    .layout-root.sidebar-collapsed .sidebar-nav ul {
+        gap: 6px !important;
+        padding-top: 2px !important;
+    }
+
+/* Center items and enlarge icons slightly in collapsed */
+.layout-root.sidebar-collapsed .sidebar-item {
+    justify-content: center;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+    .layout-root.sidebar-collapsed .sidebar-item .label {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-6px);
         display: none !important;
     }
 
-    /* Make sure avatar remains visible and centered in the bottom area */
-    .layout-root.sidebar-collapsed .sidebar-user {
-        justify-content: center;
-        padding: 8px 0;
-    }
-
-    .layout-root.sidebar-collapsed .avatar {
-        display: inline-flex;
+    .layout-root.sidebar-collapsed .sidebar-item .icon {
         width: 40px;
         height: 40px;
-        border-radius: 10px;
+        border-radius: 9px;
     }
 
-/* Sidebar root: pastel purple background to harmonize */
-.sidebar-root {
-  width: 260px;
-  background: linear-gradient(180deg, #f3ecff 0%, #efe9ff 100%); /* suave morado pastel */
-  border-radius: 12px;
-  padding: 12px;
-  box-shadow: 0 8px 22px rgba(12, 16, 30, 0.06);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: width 0.28s cubic-bezier(.2,.9,.3,1), transform 0.28s;
-  flex-shrink: 0;
-  border: 1px solid rgba(99,102,241,0.06);
+/* Ensure item wrapper is full width and centers its contents in collapsed */
+.layout-root.sidebar-collapsed .sidebar-item-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative !important;
 }
 
-/* top area with toggle */
-.sidebar-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+/* Keep wrapper left-aligned when expanded (so labels don't jump) */
+.layout-root:not(.sidebar-collapsed) .sidebar-item-wrapper {
+    justify-content: flex-start;
 }
-.sidebar-toggle {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  border: none;
-  background: white;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(99,102,241,0.06);
-  color: #6b46c1;
-}
-.sidebar-toggle:hover { transform: scale(1.04); }
 
-/* brand area */
-.sidebar-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  line-height: 1;
+/* Bubble behavior in collapsed: fixed size, centered relative to wrapper */
+.layout-root.sidebar-collapsed .active-bubble {
+    position: absolute !important;
+    width: 48px !important;
+    height: 44px !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%,-50%) !important;
+    right: auto !important;
+    bottom: auto !important;
+    border-radius: 10px !important;
+    z-index: 0 !important;
+    box-shadow: 0 8px 18px rgba(111,66,193,0.05) !important;
+    background: linear-gradient(90deg, rgba(75,47,128,0.14), rgba(111,66,193,0.08)) !important;
+    border: 1px solid rgba(111,66,193,0.08) !important;
+    transition: transform .12s cubic-bezier(.22,.9,.3,1), opacity .12s linear !important;
 }
-.sidebar-brand strong { font-size: 0.95rem; color: #4b2f80; }
-.sidebar-brand small { font-size: 0.72rem; color: #6b46c1; opacity: 0.85; }
 
-/* nav */
-.sidebar-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 6px 2px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.sidebar-item-wrapper { position: relative; }
-
-/* each item */
-.sidebar-item {
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  color: var(--text-main);
-  font-size: 0.95rem;
-  overflow: visible;
-  transition: transform .18s ease, background .18s ease, color .18s;
-}
-.sidebar-item .icon {
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9px;
-  background: rgba(75,47,128,0.06);
-  color: #4b2f80;
-  transition: transform .16s ease;
-}
-.sidebar-item .label { white-space: nowrap; transition: opacity .18s, transform .18s; }
-
-.sidebar-item:hover {
-  transform: translateX(6px);
-  background: rgba(75,47,128,0.03);
-}
-.sidebar-item:hover .icon { transform: scale(1.06); }
-
-/* active bubble (motion layoutId) - color contrast para ser visible */
+/* Prevent the bubble from visually "stretching" during framer-motion layout transitions:
+   prefer transform/translate-only transitions and limit will-change to transform */
 .active-bubble {
-  position: absolute;
-  left: 6px;
-  right: 6px;
-  top: 6px;
-  bottom: 6px;
-  background: linear-gradient(90deg, rgba(75,47,128,0.14), rgba(111,66,193,0.08));
-  border-radius: 10px;
-  z-index: -1;
-  box-shadow: 0 10px 24px rgba(111,66,193,0.06);
-  border: 1px solid rgba(111,66,193,0.08);
+    will-change: transform, opacity;
+    transition: transform .12s cubic-bezier(.22,.9,.3,1), opacity .12s linear;
 }
 
-/* highlight active icon color & label color */
-.sidebar-item.active .icon { background: linear-gradient(90deg,#7c57d6,#6b46c1); color: white; }
-.sidebar-item.active .label { color: #3b1766; font-weight: 600; }
-
-/* bottom user */
-.sidebar-bottom { margin-top: auto; padding-top: 6px; border-top: 1px solid rgba(75,47,128,0.04); }
-.sidebar-user { display:flex; gap:10px; align-items:center; }
-.avatar { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:#fff; color:#6b46c1; font-weight:700; border: 1px solid rgba(75,47,128,0.06) }
-.user-meta .name { font-size:0.88rem; font-weight:600; }
-.user-meta .email { font-size:0.72rem; color:var(--text-muted); }
-
-/* main content grows */
-.layout-main {
-  flex: 1 1 auto;
-  min-width: 0;
+/* Keep icons visually above bubble */
+.sidebar-item .icon {
+    z-index: 2;
+    position: relative;
 }
 
-/* responsive tweak */
-@media (max-width: 880px) {
-  .sidebar-root { position: fixed; left: 12px; top: 12px; z-index: 60; }
-  .layout-main { padding-top: 88px; }
+/* Toggle alignment: keep left when expanded, centered only when collapsed */
+.layout-root:not(.sidebar-collapsed) .sidebar-top {
+    justify-content: flex-start;
+    padding-left: 6px;
 }
 
+.layout-root:not(.sidebar-collapsed) .sidebar-toggle {
+    margin: 6px 0 6px 6px;
+}
+
+/* Prevent automatic margins from shifting toggle */
+.sidebar-top > .sidebar-toggle {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Helpers for tiny pixel tweaks (use in inspector if needed) */
+.layout-root.sidebar-collapsed .active-bubble.shift-right {
+    transform: translate(calc(-50% + 2px), -50%) !important;
+}
+
+.layout-root.sidebar-collapsed .active-bubble.shift-left {
+    transform: translate(calc(-50% - 2px), -50%) !important;
+}
+
+/* Responsive tweaks */
+@media (max-width:1100px) {
+    .layout-root.sidebar-collapsed .active-bubble {
+        width: 46px !important;
+        height: 42px !important;
+    }
+
+    .layout-root.sidebar-collapsed .sidebar-root {
+        width: 78px;
+    }
+}
+
+@media (max-width:880px) {
+    .sidebar-root {
+        position: fixed;
+        left: 12px;
+        top: 12px;
+        z-index: 60;
+    }
+
+    .layout-main {
+        padding-top: 88px;
+    }
+}
+
+/* End of file */
