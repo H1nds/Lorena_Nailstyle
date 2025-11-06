@@ -16,7 +16,11 @@ export default function Login() {
         try {
             await signInWithEmailAndPassword(auth, email, password);
         } catch (err: any) {
-            setError("Credenciales incorrectas o usuario no registrado.");
+            // Mostrar error detallado en consola + mensaje más informativo en UI
+            console.error('Firebase signIn error', err);
+            // Para Firebase client SDK err suele traer code y message
+            const code = err?.code || err?.message || 'unknown_error';
+            setError(`Error de autenticación: ${code}`);
         }
     };
 

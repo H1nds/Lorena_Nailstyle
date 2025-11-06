@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDR_vUBB7Tkbz4WLHmD5CY1BdN3SWsrFV4",
+  apiKey: "AIzaSyAxK_CRcRKt_xQCFgLSzXhDmvsVdLt8CkI",
   authDomain: "lorena-ventas.firebaseapp.com",
   projectId: "lorena-ventas",
   storageBucket: "lorena-ventas.firebasestorage.app",
