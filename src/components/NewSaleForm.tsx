@@ -4,6 +4,7 @@ import { uid } from '../utils';
 import { FaTimes, FaSave, FaSearch } from "react-icons/fa";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { auth } from "../firebase";
 
 type PartialClient = { id?: string; dni?: string; nombres?: string; apellidos?: string };
 
@@ -49,6 +50,7 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
         return PRE_SERVICES.filter(s => s.toLowerCase().includes(q)).slice(0, 20);
     }, [serviceQuery]);
 
+
     const buscarClienteEnDB = async (dni: string) => {
         const clean = dni.trim();
         if (!/^\d{8}$/.test(clean)) {
@@ -88,11 +90,49 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
         focusRef.current?.focus();
     }, []);
 
-    const submit = (e: React.FormEvent) => {
+    const submit = async (e: React.FormEvent) => {
         e.preventDefault();
+        // --- INICIO: Verificar conexión con Google Calendar ---
+        const uid = auth.currentUser?.uid;
+        if (!uid) {
+            alert('Debes iniciar sesión antes de continuar.');
+            return;
+        }
+
+        try {
+            const statusRes = await fetch(`/api/calendar/status?uid=${uid}`);
+            const statusJson = await statusRes.json();
+            if (!statusJson.connected) {
+                alert('Debes conectar tu cuenta de Google Calendar antes de crear una venta.');
+                return;
+            }
+        } catch (err) {
+            console.error('Error verificando conexión a Google Calendar', err);
+            alert('No se pudo verificar la conexión con Google Calendar.');
+            return;
+        }
+        // --- FIN: Verificar conexión con Google Calendar ---
         if (!serviceType) return setErr('Selecciona un tipo de servicio');
         if (quantity <= 0) return setErr('Cantidad debe ser mayor a 0');
         if (unitPrice < 0) return setErr('Precio inválido');
+
+        // Construir client solo si tenemos clientId válido
+        let clientObj: { id: string; dni: string; nombres: string; apellidos: string } | undefined;
+        if (clientId) {
+            const nombres = (clientName || '').split(' ')[0] || '';
+            const apellidos = (clientName || '').split(' ').slice(1).join(' ') || '';
+            // Forzar strings (no undefined)
+            clientObj = {
+                id: String(clientId),
+                dni: String(clientDni || ''),
+                nombres: String(nombres),
+                apellidos: String(apellidos)
+            };
+            // Si por alguna razón todo está vacío, descartamos clientObj
+            if (!clientObj.id && !clientObj.dni && !clientObj.nombres && !clientObj.apellidos) {
+                clientObj = undefined;
+            }
+        }
 
         const sale: Sale & { client?: any } = {
             id: initial ? initial.id : uid('s_'),
@@ -106,9 +146,48 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
             percentNailer,
             city,
             createdAt: initial ? initial.createdAt : new Date().toISOString(),
-            client: clientId ? { id: clientId, dni: clientDni, nombres: clientName.split(' ')[0] ?? '', apellidos: clientName.split(' ').slice(1).join(' ') ?? '' } : undefined
+            // sólo añadir la propiedad client si clientObj está definida
+            ...(clientObj ? { client: clientObj } : {})
         };
-        onSave(sale as Sale);
+
+        try {
+            // Guardado principal (tu lógica persistente)
+            onSave(sale as Sale);
+
+            // --- INICIO: Crear evento en Google Calendar ---
+            try {
+                const title = `Venta — ${serviceType} — ${clientName || nailer}`;
+                const descriptionText = `Precio unitario: S/.${unitPrice}\nCantidad: ${quantity}\nPago: ${paymentMethod}\nNailer: ${nailer}\nNotas: ${description || '-'}`;
+                const allDay = /^\d{4}-\d{2}-\d{2}$/.test(dateService);
+
+                const evtRes = await fetch('/api/calendar/create-event', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        uid,
+                        saleId: sale.id,
+                        dateService,
+                        title,
+                        description: descriptionText,
+                        allDay
+                    })
+                });
+
+                const evtJson = await evtRes.json();
+                if (evtJson?.ok) {
+                    console.log('✅ Evento creado en Google Calendar:', evtJson.event);
+                } else {
+                    console.warn('No se pudo crear evento en Google Calendar', evtJson);
+                }
+            } catch (err) {
+                console.error('Error al crear evento en Google Calendar', err);
+            }
+            // --- FIN: Crear evento en Google Calendar ---
+
+        } catch (err: any) {
+            console.error('Error guardando la venta', err);
+            setErr('Error guardando la venta');
+        }
     };
 
     return (

@@ -14,6 +14,7 @@ import ChartIndicators from "./ChartIndicators";
 
 import Layout from "./Layout";
 import type { NavKey } from "./Sidebar";
+import CalendarConsentButton from "./CalendarConsentButton";
 
 export default function Dashboard({ user, onLogout }: { user: string; onLogout: () => void }) {
     const [showIndicators, setShowIndicators] = useState(false);
@@ -70,6 +71,8 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
                         <button onClick={() => setShowIndicators(true)} className="btn-icon bg-blue-100 text-blue-800 p-2 rounded-full" title="Ver indicadores" style={{ backgroundColor: "var(--accent-blue)" }}>
                             <FaChartBar size={18} />
                         </button>
+
+                        <CalendarConsentButton />
 
                         <button onClick={() => onLogout()} className="btn-icon bg-pink-100 text-pink-800 p-2 rounded-full" title="Cerrar sesión" style={{ backgroundColor: "var(--accent-pink)" }}>
                             <FaSignOutAlt size={18} />
