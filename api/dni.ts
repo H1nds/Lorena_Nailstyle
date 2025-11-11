@@ -1,6 +1,6 @@
 // api/dni.js
 // Función serverless para Vercel que actúa como proxy hacia apiperu.dev
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
     // CORS básico (permite llamadas desde tu frontend)
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");

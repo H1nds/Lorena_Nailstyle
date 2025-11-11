@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { Sale } from '../types';
-import { uid } from '../utils';
+import { uid as generarIdVenta } from '../utils';
 import { FaTimes, FaSave, FaSearch } from "react-icons/fa";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
@@ -135,7 +135,7 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
         }
 
         const sale: Sale & { client?: any } = {
-            id: initial ? initial.id : uid('s_'),
+            id: initial ? initial.id : generarIdVenta('s_'),
             dateService,
             nailer,
             serviceType,
@@ -169,7 +169,7 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
                         dateService,
                         title,
                         description: descriptionText,
-                        allDay
+                        allDay 
                     })
                 });
 
@@ -208,7 +208,12 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <label className="flex flex-col">
                             Fecha del servicio
-                            <input type="date" value={dateService} onChange={(e) => setDateService(e.target.value)} className="mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-200" />
+                            <input
+                                type="datetime-local" // <-- Cambiar de 'date' a 'datetime-local'
+                                value={dateService}
+                                onChange={(e) => setDateService(e.target.value)}
+                                className="mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-200"
+                            />
                         </label>
                         <label className="flex flex-col">
                             Nailer
