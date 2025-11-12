@@ -1,5 +1,5 @@
 ﻿// src/components/Dashboard.tsx
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { useSales } from "../hooks/useSales";
 import NewSaleForm from "./NewSaleForm";
 import SalesTable from "./SalesTable";
@@ -8,12 +8,12 @@ import PlaceholderIndicators from "./PlaceholderIndicators";
 import Modal from "./Modal";
 import NewClientForm from "./NewClientForm";
 import { FaPlus, FaChartBar, FaSignOutAlt, FaUserPlus, FaSearch } from "react-icons/fa";
-import ChartIndicators from "./ChartIndicators";
 import Layout from "./Layout";
 import type { NavKey } from "./Sidebar";
 import CalendarConsentButton from "./CalendarConsentButton";
 import ClientView from "./ClientView";
-
+import React from "react"; // Asegúrate de importar React
+const ChartIndicators = React.lazy(() => import('./ChartIndicators'));
 export default function Dashboard({ user, onLogout }: { user: string; onLogout: () => void }) {
     const [showIndicators, setShowIndicators] = useState(false);
     const { sales, addSale, updateSale, deleteSale, clearAll } = useSales();
@@ -112,7 +112,9 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
                     <NewSaleForm initial={editing ?? undefined} onSave={handleSave} onCancel={() => { setEditing(null); setShowForm(false); }} />
                 </Modal>
                 <Modal isOpen={showIndicators} onClose={() => setShowIndicators(false)}>
-                    <ChartIndicators sales={sales} />
+                    <Suspense fallback={<div className="p-4 text-center">Cargando gráficos...</div>}>
+                        <ChartIndicators sales={sales} />
+                    </Suspense>
                 </Modal>
                 <Modal isOpen={showClientForm} onClose={() => setShowClientForm(false)}>
                     <NewClientForm onSaved={() => { setShowClientForm(false); alert("Cliente registrado correctamente"); }} />
