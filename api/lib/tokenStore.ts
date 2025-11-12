@@ -44,3 +44,26 @@ export async function getStoredTokenForUid(uid: string): Promise<TokenRecord | n
         return null;
     }
 }
+
+// Elimina el token para un uid específico
+export async function deleteTokenForUid(uid: string): Promise<boolean> {
+    try {
+        let data: Record<string, TokenRecord> = {};
+        if (fs.existsSync(STORE_PATH)) {
+            const raw = fs.readFileSync(STORE_PATH, 'utf-8');
+            data = raw ? JSON.parse(raw) : {};
+        }
+
+        // Si el usuario existe en el JSON, elimínalo
+        if (data[uid]) {
+            delete data[uid];
+            // Escribe el archivo de vuelta sin el usuario
+            fs.writeFileSync(STORE_PATH, JSON.stringify(data, null, 2), 'utf-8');
+        }
+
+        return true;
+    } catch (e) {
+        console.error('Error deleting token', e);
+        throw e;
+    }
+}

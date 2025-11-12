@@ -1,8 +1,8 @@
 // src/components/CalendarConsentButton.tsx
 import { useEffect, useState } from "react";
 import { auth } from "../firebase";
-// --- 1. Importamos los iconos que usaremos ---
-import { FaCalendarAlt, FaCalendarCheck } from "react-icons/fa";
+// 1. Importa los iconos nuevos
+import { FaCalendarAlt, FaCalendarCheck, FaUnlink } from "react-icons/fa";
 
 export default function CalendarConsentButton() {
     const [connected, setConnected] = useState<boolean | null>(null);
@@ -24,6 +24,7 @@ export default function CalendarConsentButton() {
         }
 
         const checkStatus = async () => {
+            setChecking(true); // Asegura que estemos en 'checking'
             try {
                 const res = await fetch(`/api/calendar/status?uid=${uid}`);
                 const json = await res.json();
@@ -39,7 +40,37 @@ export default function CalendarConsentButton() {
         checkStatus();
     }, [uid]);
 
-    // --- 2. (Mejora) Mostramos un spinner pequeño mientras carga ---
+    // 2. Función para manejar la desconexión
+    const handleDisconnect = async () => {
+        if (!uid) return;
+        if (!confirm("¿Estás seguro de que quieres desvincular tu Google Calendar?")) {
+            return;
+        }
+
+        setChecking(true); // Reutilizamos el estado de carga
+        try {
+            // Llama a la nueva API que creamos
+            const res = await fetch('/api/calendar/disconnect', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uid })
+            });
+
+            const json = await res.json();
+            if (json.ok) {
+                setConnected(false); // Actualiza el estado a "desconectado"
+            } else {
+                throw new Error(json.error || 'Failed to disconnect');
+            }
+        } catch (err) {
+            console.error("Error al desconectar Calendar:", err);
+            alert("No se pudo desvincular la cuenta.");
+        } finally {
+            setChecking(false);
+        }
+    };
+
+
     if (checking) {
         return (
             <div className="flex items-center justify-center w-10 h-10" title="Comprobando...">
@@ -54,16 +85,19 @@ export default function CalendarConsentButton() {
     return (
         <div className="flex items-center gap-2">
             {connected ? (
-                // --- 3. Icono de "Conectado" (en lugar de '?') ---
+                // 3. Botón "Conectado" con efecto hover
                 <button
-                    disabled
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500 text-white"
-                    title="Google Calendar conectado"
+                    onClick={handleDisconnect}
+                    className="group flex items-center justify-center w-10 h-10 rounded-full bg-green-500 hover:bg-red-600 text-white transition-all duration-200"
+                    title="Google Calendar conectado (clic para desvincular)"
                 >
-                    <FaCalendarCheck size={16} />
+                    {/* Icono por defecto: FaCalendarCheck */}
+                    <FaCalendarCheck size={16} className="block group-hover:hidden" />
+                    {/* Icono en hover: FaUnlink */}
+                    <FaUnlink size={16} className="hidden group-hover:block" />
                 </button>
             ) : (
-                // --- 4. Icono de "Conectar" (en lugar de '+') ---
+                // Botón "Desconectado" (sin cambios)
                 <a
                     href={`/api/auth/google?uid=${uid}`}
                     className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white hover:scale-105 transition-transform"

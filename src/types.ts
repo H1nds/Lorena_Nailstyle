@@ -11,3 +11,12 @@ export type Sale = {
     city: string;
     createdAt: string;
 };
+
+export type Client = {
+    id: string;
+    dni: string;
+    phone: string;
+    nombres: string;
+    apellidos: string;
+    createdAt: string;
+};

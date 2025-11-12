@@ -31,3 +31,6 @@ dist-ssr
 # Visual Studio user files
 .vs/
 .vercel
+
+# Almacén de tokens de Google
+tokens.json
