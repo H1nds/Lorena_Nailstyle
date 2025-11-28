@@ -10,6 +10,8 @@ export type Sale = {
     percentNailer: number; // 0-100
     city: string;
     createdAt: string;
+    advance: number; // Adelanto
+    balance: number; // Saldo Pendiente
 };
 
 export type Client = {

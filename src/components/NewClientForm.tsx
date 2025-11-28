@@ -1,3 +1,4 @@
+// src/components/NewClientForm.tsx
 import { useState } from "react";
 import { FaTimes, FaSave, FaSearch } from "react-icons/fa";
 import { collection, addDoc } from "firebase/firestore";
@@ -21,7 +22,6 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
         setLoading(true);
 
         try {
-            // POST a la función serverless en Vercel: /api/dni
             const res = await fetch("/api/dni", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -34,10 +34,8 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
             }
 
             const json = await res.json();
-            // apiperu.dev devuelve usualmente un objeto con { data: {...} } o directamente {...}
             const payload = json.data ?? json;
 
-            // Normaliza los posibles campos devueltos por distintas APIs
             const nombresApi =
                 payload.nombres ??
                 payload.nombre ??
@@ -60,13 +58,16 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
 
     const guardarCliente = async () => {
         setErr("");
+        // Validación: Solo el DNI es obligatorio ahora
         if (!dni || !/^\d{8}$/.test(dni.trim())) return setErr("DNI obligatorio y 8 dígitos");
-        if (!phone) return setErr("Número de celular obligatorio");
+
+        // ELIMINADO: if (!phone) return setErr("Número de celular obligatorio");
+
         setLoading(true);
         try {
             const doc = {
                 dni: dni.trim(),
-                phone: phone.trim(),
+                phone: phone.trim(), // Si está vacío, se guarda como cadena vacía ""
                 nombres: nombres.trim(),
                 apellidos: apellidos.trim(),
                 createdAt: new Date().toISOString(),
@@ -98,7 +99,7 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
                             value={dni}
                             onChange={(e) => setDni(e.target.value.replace(/\D/g, "").slice(0, 8))}
                             placeholder="8 dígitos"
-                            className="p-2 border rounded flex-1"
+                            className="p-2 border rounded flex-1 focus:outline-none focus:ring-2 focus:ring-yellow-200"
                             maxLength={8}
                         />
 
@@ -115,16 +116,7 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
                             }}
                         >
                             {loading ? (
-                                <svg
-                                    className="animate-spin"
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <circle cx="12" cy="12" r="10" stroke="#93C5FD" strokeWidth="3" strokeLinecap="round" strokeDasharray="31.4" />
-                                </svg>
+                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
                             ) : (
                                 <FaSearch size={15} color="#2563EB" />
                             )}
@@ -133,28 +125,29 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
                 </label>
 
                 <label className="flex flex-col">
-                    Número de celular
+                    {/* Indicamos visualmente que es opcional */}
+                    <span className="text-gray-700">Número de celular <span className="text-gray-400 text-sm">(Opcional)</span></span>
                     <input
                         value={phone}
                         onChange={(e) => setPhone(e.target.value.replace(/[^\d+]/g, ""))}
                         placeholder="Ej. 9XXXXXXXX"
-                        className="mt-1 p-2 border rounded"
+                        className="mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-200"
                     />
                 </label>
 
                 <label className="flex flex-col">
                     Nombres
-                    <input value={nombres} readOnly className="mt-1 p-2 border rounded bg-gray-50" />
+                    <input value={nombres} readOnly className="mt-1 p-2 border rounded bg-gray-50 text-gray-600" />
                 </label>
 
                 <label className="flex flex-col">
                     Apellidos
-                    <input value={apellidos} readOnly className="mt-1 p-2 border rounded bg-gray-50" />
+                    <input value={apellidos} readOnly className="mt-1 p-2 border rounded bg-gray-50 text-gray-600" />
                 </label>
 
                 {err && <div className="text-red-500 text-sm">{err}</div>}
 
-                <div className="flex gap-3 justify-end">
+                <div className="flex gap-3 justify-end pt-2">
                     <button
                         type="button"
                         onClick={() => {
@@ -165,6 +158,7 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
                             setErr("");
                         }}
                         className="btn-icon bg-purple-100 text-purple-800 p-2 rounded-full"
+                        title="Limpiar campos"
                     >
                         <FaTimes />
                     </button>
@@ -175,6 +169,7 @@ export default function NewClientForm({ onSaved }: { onSaved?: () => void }) {
                         className="btn-icon text-white p-2 rounded-full"
                         style={{ backgroundColor: "var(--accent-blue)" }}
                         disabled={loading}
+                        title="Guardar"
                     >
                         <FaSave />
                     </button>
