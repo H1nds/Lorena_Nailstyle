@@ -1,39 +1,32 @@
 // src/components/Layout.tsx
-import React, { useState } from "react";
+import { ReactNode } from "react";
 import Sidebar from "./Sidebar";
-import type { NavKey } from "./Sidebar";
+import type { NavKey } from "../types";
+import { motion } from "framer-motion";
 
-export default function Layout({
-    children,
-    initial = "ventas",
-    onSectionChange,
-    userEmail,
-}: {
-    children: React.ReactNode;
-    initial?: NavKey;
-    onSectionChange?: (k: NavKey) => void;
-    userEmail?: string | null;
-}) {
-    const [collapsed, setCollapsed] = useState(true);
-    const [active, setActive] = useState<NavKey>(initial);
+type Props = {
+    children: ReactNode;
+    initial: NavKey;
+    onSectionChange: (key: NavKey) => void;
+    userEmail: string;
+};
 
-    const handleNavigate = (k: NavKey) => {
-        setActive(k);
-        onSectionChange?.(k);
-    };
-
+export default function Layout({ children, initial, onSectionChange, userEmail }: Props) {
     return (
-        <div className={`layout-root ${collapsed ? "sidebar-collapsed" : ""}`}>
-            <Sidebar
-                collapsed={collapsed}
-                onToggle={() => setCollapsed((v) => !v)}
-                active={active}
-                onNavigate={handleNavigate}
-                userEmail={userEmail}
-            />
+        // CAMBIO: Usamos 'bg-brand-mesh' en lugar de la clase anterior
+        <div className="flex min-h-screen bg-brand-mesh">
+            <div className="w-28 flex-shrink-0 z-20"> {/* Z-index para que la barra quede sobre el fondo */}
+                <Sidebar active={initial} onNavigate={onSectionChange} />
+            </div>
 
-            <main className="layout-main" role="main">
-                {children}
+            <main className="flex-1 p-6 overflow-x-hidden z-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                    {children}
+                </motion.div>
             </main>
         </div>
     );

@@ -1,418 +1,70 @@
-/* Root / variables */
-#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-}
+/* src/App.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-    --bg-main: #fdf6f9;
-    --bg-card: #ffffff;
-    --accent-pink: #f8cdd8;
-    --accent-purple: #d8c4f8;
-    --accent-blue: #cde7f8;
-    --accent-green: #d4f8cd;
-    --text-main: #4a4a4a;
-    --text-muted: #888;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --primary-rose: #be185d;
+    --soft-rose: #fce7f3;
 }
 
-/* Utilities */
-.btn-icon {
-    transition: transform 0.15s ease, filter 0.15s ease;
+body {
+    font-family: var(--font-body);
+    /* Fondo un poco más suave para mejorar el contraste */
+    background: radial-gradient(circle at 0% 0%, #fff1f2 0%, #fff 100%);
+    color: #374151;
+    overflow-x: hidden;
 }
 
-    .btn-icon:hover {
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 4px rgba(0,0,0,0.1));
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+}
+
+/* Estilos base para el Vidrio */
+.glass-base {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+/* Para paneles de fondo grandes (como el dashboard) */
+.glass-panel {
+    @apply glass-base;
+    background: rgba(255, 255, 255, 0.75); /* Más opaco que antes */
+}
+
+/* Para MODALES y formularios (Máxima legibilidad) */
+.glass-modal {
+    @apply glass-base;
+    background: rgba(255, 255, 255, 0.95) !important; /* Casi blanco sólido */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Sombra potente para separar del fondo */
+}
+
+/* Tarjetas interactivas */
+.glass-card-hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+    .glass-card-hover:hover {
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        background: #ffffff;
+        border-color: var(--soft-rose);
     }
 
-/* Layout root and main */
-.layout-root {
-    display: flex;
-    min-height: 100vh;
-    gap: 20px;
-    align-items: flex-start;
+.bg-brand-mesh {
+    /* Capa 1: Un degradado suave de blanco a rosa claro semi-transparente */
+    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.85), rgba(251, 207, 232, 0.75)),
+    /* Capa 2: Tu imagen original debajo */
+    url('/bg-mesh.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Efecto parallax suave al hacer scroll */
 }
-
-.layout-main {
-    flex: 1 1 auto;
-    min-width: 0;
-}
-
-/* Sidebar base */
-.sidebar-root {
-    width: 260px;
-    background: linear-gradient(180deg,#f3ecff 0%, #efe9ff 100%);
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 8px 22px rgba(12,16,30,0.06);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex-shrink: 0;
-    border: 1px solid rgba(99,102,241,0.06);
-    transition: width .28s cubic-bezier(.2,.9,.3,1), transform .28s;
-    position: relative;
-    overflow: hidden; /* evita que la burbuja se vea por fuera al animar */
-}
-
-/* Top: toggle + brand */
-.sidebar-top {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.sidebar-toggle {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    border: none;
-    background: white;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(99,102,241,0.06);
-    color: #6b46c1;
-    transition: transform .16s ease, margin .18s ease;
-    margin: 6px 0; /* por defecto centrado en su contenedor; se ajusta en expandido/colapsado más abajo */
-}
-
-    .sidebar-toggle:hover {
-        transform: scale(1.04);
-    }
-
-.sidebar-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    line-height: 1;
-}
-
-    .sidebar-brand strong {
-        font-size: .95rem;
-        color: #4b2f80;
-    }
-
-    .sidebar-brand small {
-        font-size: .72rem;
-        color: #6b46c1;
-        opacity: .85;
-    }
-
-/* Nav list */
-.sidebar-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 6px 2px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.sidebar-item-wrapper {
-    position: relative;
-    display: block;
-    width: 100%;
-}
-
-/* Items */
-.sidebar-item {
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--text-main);
-    font-size: .95rem;
-    overflow: visible;
-    transition: transform .18s ease, background .18s ease, color .18s;
-    min-height: 48px;
-}
-
-    .sidebar-item .icon {
-        width: 36px;
-        height: 36px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 9px;
-        background: rgba(75,47,128,0.06);
-        color: #4b2f80;
-        transition: transform .16s ease;
-        position: relative;
-        z-index: 2; /* iconos por encima de la burbuja */
-    }
-
-    .sidebar-item .label {
-        white-space: nowrap;
-        transition: opacity .18s, transform .18s;
-    }
-
-    .sidebar-item:hover {
-        transform: translateX(4px);
-        background: rgba(75,47,128,0.03);
-    }
-
-        .sidebar-item:hover .icon {
-            transform: scale(1.06);
-        }
-
-    /* Active styles */
-    .sidebar-item.active .icon {
-        background: linear-gradient(90deg,#7c57d6,#6b46c1);
-        color: white;
-    }
-
-    .sidebar-item.active .label {
-        color: #3b1766;
-        font-weight: 600;
-    }
-
-/* Active bubble (default expanded) */
-.active-bubble {
-    position: absolute;
-    left: 6px;
-    right: 6px;
-    top: 6px;
-    bottom: 6px;
-    background: linear-gradient(90deg, rgba(75,47,128,0.14), rgba(111,66,193,0.08));
-    border-radius: 10px;
-    z-index: 0;
-    box-shadow: 0 10px 24px rgba(111,66,193,0.06);
-    border: 1px solid rgba(111,66,193,0.08);
-    transition: transform .18s cubic-bezier(.2,.9,.3,1), opacity .12s linear;
-    will-change: transform, left, top;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-}
-
-/* Bottom user */
-.sidebar-bottom {
-    margin-top: auto;
-    padding-top: 6px;
-    border-top: 1px solid rgba(75,47,128,0.04);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sidebar-user {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    width: 100%;
-    padding: 8px;
-    justify-content: flex-start;
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    color: #6b46c1;
-    font-weight: 700;
-    border: 1px solid rgba(75,47,128,0.06);
-    flex-shrink: 0;
-}
-
-.user-meta .email {
-    font-size: .72rem;
-    color: var(--text-muted);
-}
-
-/* =========================
-   Collapsed behavior & fixes
-   ========================= */
-
-/* collapsed width */
-.layout-root.sidebar-collapsed .sidebar-root {
-    width: 82px;
-    align-items: center;
-}
-
-    /* hide only brand and labels (keep bottom visible) */
-    .layout-root.sidebar-collapsed .sidebar-root .sidebar-brand,
-    .layout-root.sidebar-collapsed .sidebar-root .label {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateX(-6px);
-    }
-
-    /* bottom must remain visible */
-    .layout-root.sidebar-collapsed .sidebar-root .sidebar-bottom {
-        opacity: 1;
-        pointer-events: auto;
-        transform: none;
-    }
-
-/* hide just the user text, keep avatar visible and centered */
-.layout-root.sidebar-collapsed .user-meta {
-    display: none !important;
-}
-
-.layout-root.sidebar-collapsed .sidebar-user {
-    justify-content: center;
-    padding: 8px 0;
-}
-
-.layout-root.sidebar-collapsed .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: inline-flex;
-}
-
-/* Top adjustments: center icons & toggle when collapsed */
-.layout-root.sidebar-collapsed .sidebar-top {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 6px !important;
-    padding-top: 6px !important;
-    padding-bottom: 4px !important;
-}
-
-/* Toggle sizing in collapsed */
-.layout-root.sidebar-collapsed .sidebar-toggle {
-    margin: 0 !important;
-    width: 44px !important;
-    height: 44px !important;
-}
-
-/* Reduce gap between toggle and first icon */
-.layout-root.sidebar-collapsed .sidebar-nav {
-    padding-top: 6px !important;
-}
-
-    .layout-root.sidebar-collapsed .sidebar-nav ul {
-        gap: 6px !important;
-        padding-top: 2px !important;
-    }
-
-/* Center items and enlarge icons slightly in collapsed */
-.layout-root.sidebar-collapsed .sidebar-item {
-    justify-content: center;
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-    .layout-root.sidebar-collapsed .sidebar-item .label {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateX(-6px);
-        display: none !important;
-    }
-
-    .layout-root.sidebar-collapsed .sidebar-item .icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 9px;
-    }
-
-/* Ensure item wrapper is full width and centers its contents in collapsed */
-.layout-root.sidebar-collapsed .sidebar-item-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    position: relative !important;
-}
-
-/* Keep wrapper left-aligned when expanded (so labels don't jump) */
-.layout-root:not(.sidebar-collapsed) .sidebar-item-wrapper {
-    justify-content: flex-start;
-}
-
-/* Bubble behavior in collapsed: fixed size, centered relative to wrapper */
-.layout-root.sidebar-collapsed .active-bubble {
-    position: absolute !important;
-    width: 48px !important;
-    height: 44px !important;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%,-50%) !important;
-    right: auto !important;
-    bottom: auto !important;
-    border-radius: 10px !important;
-    z-index: 0 !important;
-    box-shadow: 0 8px 18px rgba(111,66,193,0.05) !important;
-    background: linear-gradient(90deg, rgba(75,47,128,0.14), rgba(111,66,193,0.08)) !important;
-    border: 1px solid rgba(111,66,193,0.08) !important;
-    transition: transform .12s cubic-bezier(.22,.9,.3,1), opacity .12s linear !important;
-}
-
-/* Prevent the bubble from visually "stretching" during framer-motion layout transitions:
-   prefer transform/translate-only transitions and limit will-change to transform */
-.active-bubble {
-    will-change: transform, opacity;
-    transition: transform .12s cubic-bezier(.22,.9,.3,1), opacity .12s linear;
-}
-
-/* Keep icons visually above bubble */
-.sidebar-item .icon {
-    z-index: 2;
-    position: relative;
-}
-
-/* Toggle alignment: keep left when expanded, centered only when collapsed */
-.layout-root:not(.sidebar-collapsed) .sidebar-top {
-    justify-content: flex-start;
-    padding-left: 6px;
-}
-
-.layout-root:not(.sidebar-collapsed) .sidebar-toggle {
-    margin: 6px 0 6px 6px;
-}
-
-/* Prevent automatic margins from shifting toggle */
-.sidebar-top > .sidebar-toggle {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
-/* Helpers for tiny pixel tweaks (use in inspector if needed) */
-.layout-root.sidebar-collapsed .active-bubble.shift-right {
-    transform: translate(calc(-50% + 2px), -50%) !important;
-}
-
-.layout-root.sidebar-collapsed .active-bubble.shift-left {
-    transform: translate(calc(-50% - 2px), -50%) !important;
-}
-
-/* Responsive tweaks */
-@media (max-width:1100px) {
-    .layout-root.sidebar-collapsed .active-bubble {
-        width: 46px !important;
-        height: 42px !important;
-    }
-
-    .layout-root.sidebar-collapsed .sidebar-root {
-        width: 78px;
-    }
-}
-
-@media (max-width:880px) {
-    .sidebar-root {
-        position: fixed;
-        left: 12px;
-        top: 12px;
-        z-index: 60;
-    }
-
-    .layout-main {
-        padding-top: 88px;
-    }
-}
-
-/* End of file */

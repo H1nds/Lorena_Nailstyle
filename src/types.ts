@@ -22,3 +22,5 @@ export type Client = {
     apellidos: string;
     createdAt: string;
 };
+
+export type NavKey = "ventas" | "clientes" | "compras";
