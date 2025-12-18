@@ -1,7 +1,7 @@
 // src/hooks/useStoreSettings.ts
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { doc, onSnapshot, setDoc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { DEFAULT_PERMISSIONS } from "../adminConfig";
 
 export function useStoreSettings() {
@@ -15,7 +15,6 @@ export function useStoreSettings() {
             if (snap.exists()) {
                 setPermissions({ ...DEFAULT_PERMISSIONS, ...snap.data() });
             } else {
-                // Si no existe, lo creamos con los valores por defecto
                 setDoc(docRef, DEFAULT_PERMISSIONS);
             }
             setLoading(false);

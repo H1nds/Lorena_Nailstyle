@@ -1,8 +1,5 @@
 // src/utils/swal.ts
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-
-const MySwal = withReactContent(Swal);
 
 const themeColors = {
     primaryPink: '#FF6B9C',
@@ -12,7 +9,6 @@ const themeColors = {
     textDark: '#374151',
 };
 
-// 1. Definimos los estilos en una constante para reutilizarlos sin errores
 const DEFAULT_CLASSES = {
     popup: 'rounded-2xl shadow-xl border border-gray-100 font-sans',
     title: 'text-xl font-bold text-gray-800',
@@ -23,7 +19,7 @@ const DEFAULT_CLASSES = {
 
 const baseMixin = Swal.mixin({
     buttonsStyling: false,
-    customClass: DEFAULT_CLASSES // Usamos la constante aquí
+    customClass: DEFAULT_CLASSES
 });
 
 export const Toast = baseMixin.mixin({
@@ -75,7 +71,6 @@ export const confirmAction = async (title: string, text: string, confirmBtnText 
         cancelButtonText: 'Cancelar',
         reverseButtons: true,
         focusCancel: true,
-        // 2. Aquí estaba el error. Ahora usamos la constante directamente.
         customClass: {
             ...DEFAULT_CLASSES,
             confirmButton: 'bg-red-500 ' + DEFAULT_CLASSES.confirmButton,

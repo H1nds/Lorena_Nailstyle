@@ -1,5 +1,4 @@
 // src/components/Modal.tsx
-import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
