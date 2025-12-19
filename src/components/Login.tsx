@@ -2,12 +2,13 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../firebase";
-import { FaGoogle, FaFingerprint } from "react-icons/fa";
+import { FaGoogle, FaFingerprint, FaEye, FaEyeSlash } from "react-icons/fa"; // <--- Importamos los ojos
 import { Toast } from "../utils/swal";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
+    const [showPassword, setShowPassword] = useState(false); // <--- Nuevo estado para el ojo
     const [loading, setLoading] = useState(false);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -28,24 +29,20 @@ export default function Login() {
 
     const handleGoogle = async () => {
         const provider = new GoogleAuthProvider();
-        // provider.addScope('https://www.googleapis.com/auth/calendar.events'); // Opcional: Comenta esto si no usas Calendar aún para probar
         try {
             await signInWithPopup(auth, provider);
-            // El éxito lo maneja el onAuthStateChanged en App.tsx, no necesitamos Toast aquí
         } catch (err: any) {
             console.error("Google login error:", err);
-            // Mostramos el mensaje de error exacto de Firebase para ayudar a depurar
             Toast.fire({ icon: 'error', title: 'Error de Google', text: err.message });
         }
     };
 
     return (
-        // CAMBIO 1: Usamos la nueva clase 'bg-brand-mesh' y añadimos 'flex-col gap-8' para el espaciado vertical
         <div className="min-h-screen flex flex-col items-center justify-center bg-brand-mesh p-4 py-8">
 
             <div className="glass-panel rounded-[2.5rem] p-8 md:p-12 w-full max-w-md shadow-2xl border border-white/60 relative overflow-hidden z-10">
 
-                {/* Decoración de fondo sutil */}
+                {/* Decoración de fondo */}
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-500 via-rose-500 to-purple-500"></div>
                 <div className="absolute -top-24 -right-24 w-48 h-48 bg-pink-400/20 rounded-full blur-3xl"></div>
                 <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-400/20 rounded-full blur-3xl"></div>
@@ -62,7 +59,7 @@ export default function Login() {
 
                     <button
                         onClick={handleGoogle}
-                        type="button" // Importante especificar type="button"
+                        type="button"
                         className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-100 p-4 rounded-xl text-gray-700 font-bold hover:bg-gray-50 hover:border-pink-200 hover:shadow-md transition-all group"
                     >
                         <FaGoogle className="text-red-500 text-xl group-hover:scale-110 transition-transform" />
@@ -87,16 +84,33 @@ export default function Login() {
                                 required
                             />
                         </div>
+
                         <div>
                             <label className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-1 block ml-1">Contraseña</label>
-                            <input
-                                type="password"
-                                value={pass}
-                                onChange={(e) => setPass(e.target.value)}
-                                className="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 outline-none transition-all font-medium"
-                                placeholder="••••••••"
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    // AQUÍ LA MAGIA: Cambia el tipo según el estado
+                                    type={showPassword ? "text" : "password"}
+                                    value={pass}
+                                    onChange={(e) => setPass(e.target.value)}
+                                    className="w-full p-4 pr-12 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 outline-none transition-all font-medium"
+                                    placeholder="••••••••"
+                                    required
+                                />
+                                {/* Botón del Ojo Flotante */}
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-pink-500 transition-colors focus:outline-none"
+                                    tabIndex={-1} // Para que no moleste al tabular
+                                >
+                                    {showPassword ? (
+                                        <FaEye size={20} title="Ocultar contraseña" />
+                                    ) : (
+                                        <FaEyeSlash size={20} title="Mostrar contraseña" />
+                                    )}
+                                </button>
+                            </div>
                         </div>
 
                         <button
@@ -117,7 +131,6 @@ export default function Login() {
                 </div>
             </div>
 
-            {/* CAMBIO 2: El footer ahora es un elemento flexible normal, no absoluto, con margen superior */}
             <div className="text-center text-gray-500 text-sm font-medium mt-4 z-10">
                 © {new Date().getFullYear()} Lorena Nailstyle. Sistema de Gestión.
             </div>
