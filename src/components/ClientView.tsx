@@ -1,17 +1,26 @@
 // src/components/ClientView.tsx
-import { useState, useMemo } from 'react'; // <--- 1. Importar useState y useMemo
+import { useState, useMemo } from 'react';
 import { useClients } from '../hooks/useClients';
+import { useStoreSettings } from '../hooks/useStoreSettings'; // <--- Seguridad
+import { auth } from '../firebase'; // <--- Seguridad
+import { ADMIN_EMAIL } from '../adminConfig'; // <--- Seguridad
 import { AnimatePresence, motion } from 'framer-motion';
-import { FaEdit, FaTrash, FaPhone, FaWhatsapp, FaUserCircle, FaSearch } from 'react-icons/fa'; // <--- 2. Importar FaSearch
+import { FaEdit, FaTrash, FaPhone, FaWhatsapp, FaUserCircle, FaSearch } from 'react-icons/fa';
 import type { Client } from '../types';
 import { confirmAction, Toast } from '../utils/swal';
 
-export default function ClientView() {
+type Props = {
+    onEdit?: (client: Client) => void;
+};
+
+export default function ClientView({ onEdit }: Props) {
     const { clients, deleteClient } = useClients();
-    // 3. Estado para el buscador
+    const { permissions } = useStoreSettings(); // Leemos permisos globales
     const [searchQuery, setSearchQuery] = useState('');
 
-    // 4. Lógica de filtrado en tiempo real
+    // Lógica de Seguridad: ¿Puede borrar? (Es Admin O tiene el permiso activado)
+    const canDelete = auth.currentUser?.email === ADMIN_EMAIL || permissions.canDeleteClients;
+
     const filteredClients = useMemo(() => {
         const query = searchQuery.trim().toLowerCase();
         if (!query) return clients;
@@ -20,14 +29,16 @@ export default function ClientView() {
             const fullName = `${client.nombres} ${client.apellidos}`.toLowerCase();
             const dni = client.dni.toLowerCase();
             const phone = client.phone ? client.phone.toLowerCase() : '';
-
             return fullName.includes(query) || dni.includes(query) || phone.includes(query);
         });
     }, [clients, searchQuery]);
 
-
     const handleEdit = (client: Client) => {
-        Toast.fire({ icon: 'info', title: `Edición de ${client.nombres} próximamente` });
+        if (onEdit) {
+            onEdit(client);
+        } else {
+            console.error("Función onEdit no proporcionada");
+        }
     };
 
     const handleDelete = async (id: string) => {
@@ -58,14 +69,12 @@ export default function ClientView() {
 
     return (
         <div className="glass-panel rounded-[2.5rem] p-8">
-            {/* Header con Título y Contador */}
             <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
                 <div>
                     <h3 className="text-3xl font-bold text-gray-800 font-serif mb-1">Cartera de Clientes</h3>
                     <p className="text-gray-500 text-sm">Gestiona tus contactos y citas</p>
                 </div>
 
-                {/* 5. BARRA DE BÚSQUEDA AQUÍ */}
                 <div className="relative w-full md:w-auto flex-1 max-w-md">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                         <FaSearch className="h-5 w-5 text-gray-400" />
@@ -96,7 +105,6 @@ export default function ClientView() {
                     </thead>
                     <tbody>
                         <AnimatePresence>
-                            {/* 6. Usamos filteredClients aquí en lugar de clients */}
                             {filteredClients.map((client, index) => (
                                 <motion.tr
                                     key={client.id}
@@ -106,7 +114,6 @@ export default function ClientView() {
                                     transition={{ delay: index * 0.05, type: "spring", stiffness: 100 }}
                                     className="glass-card-hover group"
                                 >
-                                    {/* ... (El resto de las filas de la tabla sigue igual) ... */}
                                     <td className="p-4 pl-6 rounded-l-2xl">
                                         <div className="flex items-center gap-4">
                                             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-rose-100 to-pink-200 border-2 border-white shadow-sm flex items-center justify-center text-rose-600 text-lg font-bold font-serif">
@@ -134,12 +141,17 @@ export default function ClientView() {
                                             <button onClick={() => handleWhatsApp(client)} title="Enviar WhatsApp" className="w-10 h-10 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-500 hover:text-white hover:shadow-md transition-all border border-green-200 hover:border-transparent">
                                                 <FaWhatsapp size={18} />
                                             </button>
+
                                             <button onClick={() => handleEdit(client)} title="Editar" className="w-10 h-10 flex items-center justify-center rounded-full bg-amber-100 text-amber-600 hover:bg-amber-500 hover:text-white hover:shadow-md transition-all border border-amber-200 hover:border-transparent">
                                                 <FaEdit size={18} />
                                             </button>
-                                            <button onClick={() => handleDelete(client.id)} title="Eliminar" className="w-10 h-10 flex items-center justify-center rounded-full bg-red-100 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-md transition-all border border-red-200 hover:border-transparent">
-                                                <FaTrash size={18} />
-                                            </button>
+
+                                            {/* SEGURIDAD: Botón de borrar condicional */}
+                                            {canDelete && (
+                                                <button onClick={() => handleDelete(client.id)} title="Eliminar" className="w-10 h-10 flex items-center justify-center rounded-full bg-red-100 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-md transition-all border border-red-200 hover:border-transparent">
+                                                    <FaTrash size={18} />
+                                                </button>
+                                            )}
                                         </div>
                                     </td>
                                 </motion.tr>

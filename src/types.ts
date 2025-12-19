@@ -24,3 +24,16 @@ export type Client = {
 };
 
 export type NavKey = "ventas" | "clientes" | "compras";
+
+export type Purchase = {
+    id: string;
+    date: string;          // Fecha de compra
+    productName: string;   // Nombre del producto/servicio
+    category: string;      // Insumos, Mobiliario, Servicios, etc.
+    supplier: string;      // Proveedor (ej: "Distribuidora Lima", "Enel")
+    quantity: number;
+    unitPrice: number;
+    totalPrice: number;
+    notes?: string;
+    createdAt: string;
+};

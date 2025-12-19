@@ -17,6 +17,8 @@ import type { NavKey } from "../types";
 import CalendarConsentButton from "./CalendarConsentButton";
 import ClientView from "./ClientView";
 import AdminSettings from "./AdminSettings";
+import type { Client } from "../types";
+import PurchasesView from "./PurchasesView";
 
 // 1. Importamos las utilidades de alerta
 import { Toast, confirmAction } from "../utils/swal";
@@ -29,9 +31,10 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
 
     const isAdmin = user === ADMIN_EMAIL;
 
+    const [showClientForm, setShowClientForm] = useState(false);
+    const [editingClient, setEditingClient] = useState<Client | null>(null);
     const [showIndicators, setShowIndicators] = useState(false);
     const [showForm, setShowForm] = useState(false);
-    const [showClientForm, setShowClientForm] = useState(false);
     const [showAdminPanel, setShowAdminPanel] = useState(false);
     const [editing, setEditing] = useState<Sale | null>(null);
     const [activeView, setActiveView] = useState<NavKey>("ventas");
@@ -177,12 +180,16 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
                     <ChartIndicators sales={sales} />
                 </Modal>
 
-                <Modal isOpen={showClientForm} onClose={() => setShowClientForm(false)}>
-                    {/* Alerta tipo Toast al guardar cliente */}
-                    <NewClientForm onSaved={() => {
-                        setShowClientForm(false);
-                        Toast.fire({ icon: 'success', title: '¡Cliente registrado!' });
-                    }} />
+                <Modal isOpen={showClientForm} onClose={() => { setShowClientForm(false); setEditingClient(null); }}>
+                    <NewClientForm
+                        initial={editingClient} // <--- Pasamos el cliente a editar
+                        onCancel={() => { setShowClientForm(false); setEditingClient(null); }}
+                        onSaved={() => {
+                            setShowClientForm(false);
+                            setEditingClient(null);
+                            // El mensaje de éxito ya lo maneja NewClientForm internamente con swal
+                        }}
+                    />
                 </Modal>
 
                 <Modal isOpen={showAdminPanel} onClose={() => setShowAdminPanel(false)} width="500px">
@@ -257,14 +264,16 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
                 )}
 
                 {activeView === 'clientes' && (
-                    <ClientView />
+                    <ClientView
+                        onEdit={(client) => {
+                            setEditingClient(client); // Guardamos quién es
+                            setShowClientForm(true);  // Abrimos el modal
+                        }}
+                    />
                 )}
 
                 {activeView === 'compras' && (
-                    <div className="bg-white rounded shadow p-4">
-                        <h3 className="font-semibold mb-3">Registro de Compras</h3>
-                        <p>Solo visible para administradores (Próximamente).</p>
-                    </div>
+                    <PurchasesView />
                 )}
 
             </div>

@@ -6,5 +6,9 @@ export const DEFAULT_PERMISSIONS = {
     canEditSales: true,    // Empleado puede editar ventas
     canDeleteSales: false, // Empleado puede borrar ventas
     canSeeTotals: false,   // Empleado puede ver dinero total (Indicadores)
-    canDownloadReport: false // Empleado puede descargar reportes (Futuro)
+    canDownloadReport: false, // Empleado puede descargar reportes (Futuro)
+
+    canDeleteClients: false,  // Borrar clientes (Peligroso)
+    canDeletePurchases: false,// Borrar compras (Afecta caja)
+    canEditHistory: false     // Editar registros antiguos (Seguridad extra)
 };
