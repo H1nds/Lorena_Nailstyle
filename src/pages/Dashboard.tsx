@@ -6,22 +6,22 @@ import { ADMIN_EMAIL } from "../config/adminConfig";
 
 import NewSaleForm from "../components/domain/NewSaleForm";
 import SalesTable from "../components/domain/SalesTable";
-import type { Sale } from "../types";
+import type { Sale } from '@/types';
 import PlaceholderIndicators from "../components/ui/PlaceholderIndicators";
 import Modal from "../components/ui/Modal";
 import NewClientForm from "../components/domain/NewClientForm";
 import { FaPlus, FaChartBar, FaSignOutAlt, FaUserPlus, FaSearch, FaCalendarDay, FaCalendarWeek, FaCalendarAlt, FaLayerGroup, FaCogs } from "react-icons/fa";
 import ChartIndicators from "../components/ui/ChartIndicators";
 import Layout from "../components/layout/Layout";
-import type { NavKey } from "../types";
+import type { NavKey } from '@/types';
 import CalendarConsentButton from "../components/ui/CalendarConsentButton";
 import ClientView from "./ClientView";
 import AdminSettings from "./AdminSettings";
-import type { Client } from "../types";
+import type { Client } from '@/types';
 import PurchasesView from "../pages/PurchasesView";
 
 // 1. Importamos las utilidades de alerta
-import { Toast, confirmAction } from "../utils/swal";
+import { Toast, confirmAction } from '@/utils/swal';
 
 type TimeFilter = 'all' | 'daily' | 'weekly' | 'monthly';
 

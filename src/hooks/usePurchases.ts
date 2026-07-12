@@ -1,8 +1,8 @@
 // src/hooks/usePurchases.ts
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, query, orderBy } from "firebase/firestore";
-import { db } from "../firebase";
-import type { Purchase } from "../types";
+import { db } from '@/config/firebase';
+import type { Purchase } from '@/types';
 
 export function usePurchases() {
     const [purchases, setPurchases] = useState<Purchase[]>([]);

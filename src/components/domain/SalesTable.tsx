@@ -1,9 +1,9 @@
-﻿// src/components/SalesTable.tsx
+// src/components/SalesTable.tsx
 import { motion, AnimatePresence } from "framer-motion";
 import { FaEdit, FaTrash, FaCreditCard, FaMoneyBillWave, FaMobileAlt } from "react-icons/fa";
-import type { Sale } from "../types";
-import { calcSubtotal, calcTotalNailer } from "../utils/utils";
-import { confirmAction } from "../utils/swal";
+import type { Sale } from '@/types';
+import { calcSubtotal, calcTotalNailer } from '@/utils';
+import { confirmAction } from '@/utils/swal';
 
 type Props = {
     sales: Sale[];

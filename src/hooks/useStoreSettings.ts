@@ -1,8 +1,8 @@
 // src/hooks/useStoreSettings.ts
 import { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { db } from '@/config/firebase';
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
-import { DEFAULT_PERMISSIONS } from "../adminConfig";
+import { DEFAULT_PERMISSIONS } from '@/config/adminConfig';
 
 export function useStoreSettings() {
     const [permissions, setPermissions] = useState(DEFAULT_PERMISSIONS);

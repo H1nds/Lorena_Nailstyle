@@ -1,6 +1,6 @@
 // src/components/CalendarConsentButton.tsx
 import { useEffect, useState } from "react";
-import { auth } from "../firebase";
+import { auth } from '@/config/firebase';
 // 1. Importa los iconos nuevos
 import { FaCalendarAlt, FaCalendarCheck, FaUnlink } from "react-icons/fa";
 
@@ -40,10 +40,10 @@ export default function CalendarConsentButton() {
         checkStatus();
     }, [uid]);
 
-    // 2. Función para manejar la desconexión
+    // 2. Funciï¿½n para manejar la desconexiï¿½n
     const handleDisconnect = async () => {
         if (!uid) return;
-        if (!confirm("¿Estás seguro de que quieres desvincular tu Google Calendar?")) {
+        if (!confirm("ï¿½Estï¿½s seguro de que quieres desvincular tu Google Calendar?")) {
             return;
         }
 
@@ -85,7 +85,7 @@ export default function CalendarConsentButton() {
     return (
         <div className="flex items-center gap-2">
             {connected ? (
-                // 3. Botón "Conectado" con efecto hover
+                // 3. Botï¿½n "Conectado" con efecto hover
                 <button
                     onClick={handleDisconnect}
                     className="group flex items-center justify-center w-10 h-10 rounded-full bg-green-500 hover:bg-red-600 text-white transition-all duration-200"
@@ -97,7 +97,7 @@ export default function CalendarConsentButton() {
                     <FaUnlink size={16} className="hidden group-hover:block" />
                 </button>
             ) : (
-                // Botón "Desconectado" (sin cambios)
+                // Botï¿½n "Desconectado" (sin cambios)
                 <a
                     href={`/api/auth/google?uid=${uid}`}
                     className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white hover:scale-105 transition-transform"

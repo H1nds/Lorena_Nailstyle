@@ -1,11 +1,11 @@
-﻿// src/components/NewSaleForm.tsx
+// src/components/NewSaleForm.tsx
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import type { Sale } from '../types';
-import { uid as generarIdVenta } from '../utils/utils';
+import type { Sale } from '@/types';
+import { uid as generarIdVenta } from '@/utils';
 import { FaTimes, FaSave, FaSearch, FaUserPlus, FaCalendarAlt } from "react-icons/fa";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
-import { db, auth } from "../firebase";
-import Modal from "./Modal";
+import { db, auth } from '@/config/firebase';
+import Modal from '@/components/ui/Modal';
 
 // ... (Tus constantes TYPES, PRE_NAILERS, etc. se quedan igual) ...
 const TYPES = ["Esmaltado en gel permanente", "Bio builder gel", "Poligel", "Gel", "Acrilicas con tips", "Acrilicas esculpidas", "Manicura tradicional", "Pedicura tradicional", "Pedicura de esmaltado en gel permanente"];

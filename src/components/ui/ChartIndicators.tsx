@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import type { Sale } from "../../types";
+import type { Sale } from '@/types';
 import {
     ResponsiveContainer,
     BarChart,

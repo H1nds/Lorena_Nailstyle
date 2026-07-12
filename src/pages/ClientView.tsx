@@ -2,12 +2,12 @@
 import { useState, useMemo } from 'react';
 import { useClients } from '../hooks/useClients';
 import { useStoreSettings } from '../hooks/useStoreSettings'; // <--- Seguridad
-import { auth } from '../firebase'; // <--- Seguridad
-import { ADMIN_EMAIL } from '../adminConfig'; // <--- Seguridad
+import { auth } from '@/config/firebase'; // <--- Seguridad
+import { ADMIN_EMAIL } from '@/config/adminConfig'; // <--- Seguridad
 import { AnimatePresence, motion } from 'framer-motion';
 import { FaEdit, FaTrash, FaPhone, FaWhatsapp, FaUserCircle, FaSearch } from 'react-icons/fa';
-import type { Client } from '../types';
-import { confirmAction, Toast } from '../utils/swal';
+import type { Client } from '@/types';
+import { confirmAction, Toast } from '@/utils/swal';
 
 type Props = {
     onEdit?: (client: Client) => void;

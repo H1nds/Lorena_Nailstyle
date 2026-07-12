@@ -1,7 +1,7 @@
 // src/hooks/useSales.ts
 import { useEffect, useState } from "react";
-import type { Sale } from "../types";
-import { db } from "../firebase";
+import type { Sale } from '@/types';
+import { db } from '@/config/firebase';
 import {
     collection,
     addDoc,
@@ -49,7 +49,7 @@ export function useSales() {
             const docRef = await addDoc(colRef, payload);
             return docRef.id;
         } catch (err) {
-            console.error("Error añadiendo sale:", err);
+            console.error("Error aï¿½adiendo sale:", err);
             throw err;
         }
     };
@@ -79,7 +79,7 @@ export function useSales() {
     };
 
     const clearAll = async () => {
-        // Elimina todos los documentos en la colección (poco eficiente para grandes volúmenes)
+        // Elimina todos los documentos en la colecciï¿½n (poco eficiente para grandes volï¿½menes)
         try {
             const snapshot = await getDocs(colRef);
             const batch = writeBatch(db);

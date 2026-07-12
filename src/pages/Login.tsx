@@ -1,9 +1,9 @@
 ﻿// src/components/Login.tsx
 import { useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from '@/config/firebase';
 import { FaGoogle, FaFingerprint, FaEye, FaEyeSlash } from "react-icons/fa"; // <--- Importamos los ojos
-import { Toast } from "../utils/swal";
+import { Toast } from '@/utils/swal';
 
 export default function Login() {
     const [email, setEmail] = useState("");

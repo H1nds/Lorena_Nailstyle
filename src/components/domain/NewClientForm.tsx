@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 import { FaTimes, FaSave, FaSearch, FaUserCircle, FaEdit } from "react-icons/fa";
 import { collection, addDoc, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
-import { showErrorModal, showSuccessModal, Toast } from "../utils/swal";
-import type { Client } from "../types";
+import { db } from '@/config/firebase';
+import { showErrorModal, showSuccessModal, Toast } from '@/utils/swal';
+import type { Client } from '@/types';
 
 type Props = {
     onSaved?: () => void;

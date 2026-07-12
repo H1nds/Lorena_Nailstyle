@@ -2,14 +2,14 @@
 import { useState, useMemo } from "react";
 import { usePurchases } from "../hooks/usePurchases";
 import { useStoreSettings } from '../hooks/useStoreSettings'; // <--- Seguridad
-import { auth } from '../firebase'; // <--- Seguridad
-import { ADMIN_EMAIL } from '../adminConfig'; // <--- Seguridad
+import { auth } from '@/config/firebase'; // <--- Seguridad
+import { ADMIN_EMAIL } from '@/config/adminConfig'; // <--- Seguridad
 import { FaSearch, FaPlus, FaFilter, FaEdit, FaTrash, FaShoppingBag } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import type { Purchase } from "../types";
-import { confirmAction, Toast } from "../utils/swal";
-import Modal from "./Modal";
-import NewPurchaseForm from "./NewPurchaseForm";
+import type { Purchase } from '@/types';
+import { confirmAction, Toast } from '@/utils/swal';
+import Modal from '@/components/ui/Modal';
+import NewPurchaseForm from '@/components/domain/NewPurchaseForm';
 
 type TimeRange = "week" | "month" | "year" | "all";
 

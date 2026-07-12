@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { Sale } from '../../types';
+import type { Sale } from '@/types';
 
 interface Props {
   sales: Sale[];

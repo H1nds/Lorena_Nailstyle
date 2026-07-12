@@ -1,8 +1,8 @@
 // src/components/NewPurchaseForm.tsx
 import { useState, useEffect } from "react";
 import { FaSave, FaTimes, FaTag, FaBoxOpen, FaStore } from "react-icons/fa";
-import { Toast } from "../utils/swal";
-import type { Purchase } from "../types";
+import { Toast } from '@/utils/swal';
+import type { Purchase } from '@/types';
 
 const CATEGORIES = [
     "Insumos Uñas",

@@ -1,7 +1,7 @@
 // src/components/Layout.tsx
-import type { ReactNode } from "react"; // <--- CORRECCIÓN 1: Agregar 'type'
+import type { ReactNode } from "react"; // <--- CORRECCIï¿½N 1: Agregar 'type'
 import Sidebar from "./Sidebar";
-import type { NavKey } from "../types";
+import type { NavKey } from '@/types';
 import { motion } from "framer-motion";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
     userEmail: string; // Se mantiene en el tipo por si acaso
 };
 
-// CORRECCIÓN 2: Quitamos 'userEmail' de aquí porque no lo usamos dentro del HTML
+// CORRECCIï¿½N 2: Quitamos 'userEmail' de aquï¿½ porque no lo usamos dentro del HTML
 export default function Layout({ children, initial, onSectionChange }: Props) {
     return (
         <div className="flex min-h-screen bg-brand-mesh">
