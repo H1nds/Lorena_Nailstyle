@@ -2,23 +2,23 @@
 import { useState, useMemo } from "react";
 import { useSales } from "../hooks/useSales";
 import { useStoreSettings } from "../hooks/useStoreSettings";
-import { ADMIN_EMAIL } from "../adminConfig";
+import { ADMIN_EMAIL } from "../config/adminConfig";
 
-import NewSaleForm from "./NewSaleForm";
-import SalesTable from "./SalesTable";
+import NewSaleForm from "../components/domain/NewSaleForm";
+import SalesTable from "../components/domain/SalesTable";
 import type { Sale } from "../types";
-import PlaceholderIndicators from "./PlaceholderIndicators";
-import Modal from "./Modal";
-import NewClientForm from "./NewClientForm";
+import PlaceholderIndicators from "../components/ui/PlaceholderIndicators";
+import Modal from "../components/ui/Modal";
+import NewClientForm from "../components/domain/NewClientForm";
 import { FaPlus, FaChartBar, FaSignOutAlt, FaUserPlus, FaSearch, FaCalendarDay, FaCalendarWeek, FaCalendarAlt, FaLayerGroup, FaCogs } from "react-icons/fa";
-import ChartIndicators from "./ChartIndicators";
-import Layout from "./Layout";
+import ChartIndicators from "../components/ui/ChartIndicators";
+import Layout from "../components/layout/Layout";
 import type { NavKey } from "../types";
-import CalendarConsentButton from "./CalendarConsentButton";
+import CalendarConsentButton from "../components/ui/CalendarConsentButton";
 import ClientView from "./ClientView";
 import AdminSettings from "./AdminSettings";
 import type { Client } from "../types";
-import PurchasesView from "./PurchasesView";
+import PurchasesView from "../pages/PurchasesView";
 
 // 1. Importamos las utilidades de alerta
 import { Toast, confirmAction } from "../utils/swal";

@@ -1,7 +1,7 @@
 // src/hooks/useClients.ts
 import { useEffect, useState } from "react";
-import type { Client } from "../types"; // Importa el nuevo tipo
-import { db } from "../firebase";
+import type { Client } from "../types/index"; // Importa el nuevo tipo
+import { db } from "../config/firebase";
 import {
     collection,
     onSnapshot,
@@ -18,7 +18,7 @@ import {
  */
 export function useClients() {
     const [clients, setClients] = useState<Client[]>([]);
-    // 1. Apunta a la colección "clientes"
+    // 1. Apunta a la colecciï¿½n "clientes"
     const colRef = collection(db, "clientes");
 
     useEffect(() => {

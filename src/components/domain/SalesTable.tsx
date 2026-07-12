@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { FaEdit, FaTrash, FaCreditCard, FaMoneyBillWave, FaMobileAlt } from "react-icons/fa";
 import type { Sale } from "../types";
-import { calcSubtotal, calcTotalNailer } from "../utils";
+import { calcSubtotal, calcTotalNailer } from "../utils/utils";
 import { confirmAction } from "../utils/swal";
 
 type Props = {

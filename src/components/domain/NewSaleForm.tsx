@@ -1,7 +1,7 @@
 ﻿// src/components/NewSaleForm.tsx
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { Sale } from '../types';
-import { uid as generarIdVenta } from '../utils';
+import { uid as generarIdVenta } from '../utils/utils';
 import { FaTimes, FaSave, FaSearch, FaUserPlus, FaCalendarAlt } from "react-icons/fa";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";

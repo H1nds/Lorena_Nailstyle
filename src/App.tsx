@@ -1,10 +1,10 @@
 ﻿import { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import type { User } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth } from "./config/firebase";
 import { AnimatePresence, motion } from 'framer-motion'
-import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
     const [user, setUser] = useState<User | null>(null);

@@ -1,6 +1,6 @@
 // src/components/Sidebar.tsx
 import { FaHome, FaUsers, FaShoppingBag } from "react-icons/fa";
-import type { NavKey } from "../types"; // <--- IMPORTAMOS DE TYPES
+import type { NavKey } from "../../types/index"; // <--- IMPORTAMOS DE TYPES
 
 type Props = {
     active: NavKey;
