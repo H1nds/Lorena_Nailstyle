@@ -75,7 +75,7 @@ export default function NewPurchaseForm({ onSave, onCancel, initial }: Props) {
     return (
         <div className="text-gray-700">
             <div className="flex items-center gap-4 mb-6 border-b border-gray-100 pb-4">
-                <div className="p-3 bg-purple-100 text-purple-600 rounded-full">
+                <div className="p-3 bg-babyblue-100 text-babyblue-600 rounded-full">
                     <FaBoxOpen size={24} />
                 </div>
                 <div>
@@ -91,12 +91,12 @@ export default function NewPurchaseForm({ onSave, onCancel, initial }: Props) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <label className="block">
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1 block">Fecha de Compra</span>
-                        <input type="date" value={date} onChange={e => setDate(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-300 outline-none font-medium" />
+                        <input type="date" value={date} onChange={e => setDate(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none font-medium" />
                     </label>
                     <label className="block">
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1 block">Categoría</span>
                         <div className="relative">
-                            <select value={category} onChange={e => setCategory(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-300 outline-none appearance-none font-medium">
+                            <select value={category} onChange={e => setCategory(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none appearance-none font-medium">
                                 {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                             </select>
                             <FaTag className="absolute right-3 top-3.5 text-gray-400 pointer-events-none" />
@@ -107,29 +107,29 @@ export default function NewPurchaseForm({ onSave, onCancel, initial }: Props) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <label className="block">
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1 block">Producto / Servicio</span>
-                        <input placeholder="Ej. Esmalte Rojo OPI" value={productName} onChange={e => setProductName(e.target.value)} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-300 outline-none placeholder-gray-300" />
+                        <input placeholder="Ej. Esmalte Rojo OPI" value={productName} onChange={e => setProductName(e.target.value)} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none placeholder-gray-300" />
                     </label>
                     <label className="block">
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1 block">Proveedor (Opcional)</span>
                         <div className="relative">
-                            <input placeholder="Ej. Distribuidora Lima" value={supplier} onChange={e => setSupplier(e.target.value)} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-300 outline-none placeholder-gray-300" />
+                            <input placeholder="Ej. Distribuidora Lima" value={supplier} onChange={e => setSupplier(e.target.value)} className="w-full p-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none placeholder-gray-300" />
                             <FaStore className="absolute right-3 top-3.5 text-gray-300" />
                         </div>
                     </label>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4 bg-purple-50 p-4 rounded-2xl border border-purple-100">
+                <div className="grid grid-cols-3 gap-4 bg-babyblue-50 p-4 rounded-2xl border border-babyblue-100">
                     <label className="block">
-                        <span className="text-[10px] font-bold text-purple-400 uppercase">Cantidad</span>
-                        <input type="number" min="1" value={quantity} onChange={e => setQuantity(Number(e.target.value))} className="w-full p-2 bg-white border border-purple-200 rounded-lg text-center font-bold text-gray-700 outline-none focus:ring-1 focus:ring-purple-400" />
+                        <span className="text-[10px] font-bold text-babyblue-400 uppercase">Cantidad</span>
+                        <input type="number" min="1" value={quantity} onChange={e => setQuantity(Number(e.target.value))} className="w-full p-2 bg-white border border-babyblue-200 rounded-lg text-center font-bold text-gray-700 outline-none focus:ring-1 focus:ring-babyblue-400" />
                     </label>
                     <label className="block">
-                        <span className="text-[10px] font-bold text-purple-400 uppercase">Precio Unit. (S/.)</span>
-                        <input type="number" min="0" step="0.10" value={unitPrice} onChange={e => setUnitPrice(Number(e.target.value))} className="w-full p-2 bg-white border border-purple-200 rounded-lg text-center font-bold text-gray-700 outline-none focus:ring-1 focus:ring-purple-400" />
+                        <span className="text-[10px] font-bold text-babyblue-400 uppercase">Precio Unit. (S/.)</span>
+                        <input type="number" min="0" step="0.10" value={unitPrice} onChange={e => setUnitPrice(Number(e.target.value))} className="w-full p-2 bg-white border border-babyblue-200 rounded-lg text-center font-bold text-gray-700 outline-none focus:ring-1 focus:ring-babyblue-400" />
                     </label>
                     <label className="block">
-                        <span className="text-[10px] font-bold text-purple-700 uppercase">Total (Auto)</span>
-                        <div className="w-full p-2 bg-purple-200 border border-purple-300 rounded-lg text-center font-bold text-purple-900 flex items-center justify-center gap-1">
+                        <span className="text-[10px] font-bold text-babyblue-700 uppercase">Total (Auto)</span>
+                        <div className="w-full p-2 bg-babyblue-200 border border-babyblue-300 rounded-lg text-center font-bold text-babyblue-900 flex items-center justify-center gap-1">
                             <span className="text-xs">S/.</span> {(quantity * unitPrice).toFixed(2)}
                         </div>
                     </label>
@@ -137,14 +137,14 @@ export default function NewPurchaseForm({ onSave, onCancel, initial }: Props) {
 
                 <label className="block">
                     <span className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1 block">Notas Adicionales</span>
-                    <textarea value={notes} onChange={e => setNotes(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-300 outline-none resize-none h-20 placeholder-gray-300" placeholder="Detalles extra..." />
+                    <textarea value={notes} onChange={e => setNotes(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none resize-none h-20 placeholder-gray-300" placeholder="Detalles extra..." />
                 </label>
 
                 <div className="flex gap-4 justify-end pt-4 border-t border-gray-100">
                     <button type="button" onClick={onCancel} className="px-6 py-3 rounded-full font-bold text-gray-500 hover:bg-gray-100 transition-colors flex items-center gap-2">
                         <FaTimes /> Cancelar
                     </button>
-                    <button type="submit" className="px-8 py-3 rounded-full font-bold text-white bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 shadow-lg shadow-purple-200 transform hover:-translate-y-1 transition-all flex items-center gap-2">
+                    <button type="submit" className="px-8 py-3 rounded-full font-bold text-white bg-gradient-to-r from-gold-400 to-gold-600 hover:from-gold-500 hover:to-gold-700 shadow-lg shadow-gold-200/50 transform hover:-translate-y-1 transition-all flex items-center gap-2">
                         <FaSave /> {initial ? "Guardar Cambios" : "Registrar Gasto"}
                     </button>
                 </div>

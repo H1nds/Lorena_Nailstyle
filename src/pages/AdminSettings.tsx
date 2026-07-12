@@ -25,7 +25,7 @@ export default function AdminSettings() {
     return (
         <div className="bg-white p-2">
             <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-100">
-                <div className="p-4 bg-purple-100 text-purple-700 rounded-2xl shadow-sm">
+                <div className="p-4 bg-babyblue-100 text-babyblue-700 rounded-2xl shadow-sm">
                     <FaUserShield size={28} />
                 </div>
                 <div>

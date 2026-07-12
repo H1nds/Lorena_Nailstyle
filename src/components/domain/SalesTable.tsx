@@ -15,8 +15,8 @@ type Props = {
 const getPaymentIcon = (method: string) => {
     const m = method.toLowerCase();
     if (m.includes('efectivo')) return <FaMoneyBillWave className="text-green-500" />;
-    if (m.includes('tarjeta')) return <FaCreditCard className="text-purple-500" />;
-    return <FaMobileAlt className="text-pink-500" />;
+    if (m.includes('tarjeta')) return <FaCreditCard className="text-babyblue-500" />;
+    return <FaMobileAlt className="text-babyblue-500" />;
 };
 
 export default function SalesTable({ sales, onEdit, onDelete }: Props) {
@@ -39,7 +39,7 @@ export default function SalesTable({ sales, onEdit, onDelete }: Props) {
         <div className="glass-panel rounded-[2rem] p-6 overflow-hidden">
             <div className="flex items-center justify-between mb-6 px-2">
                 <h3 className="text-2xl font-bold text-gray-800 font-serif">Registro de Ventas</h3>
-                <span className="text-xs font-bold px-3 py-1 bg-pink-100 text-pink-600 rounded-full tracking-wider uppercase">
+                <span className="text-xs font-bold px-3 py-1 bg-babyblue-100 text-babyblue-600 rounded-full tracking-wider uppercase">
                     {sales.length} Registros
                 </span>
             </div>
@@ -88,7 +88,7 @@ export default function SalesTable({ sales, onEdit, onDelete }: Props) {
                                         {/* Nailer con Avatar */}
                                         <td className="p-3">
                                             <div className="flex items-center gap-2">
-                                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gold-400 to-gold-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">
                                                     {sale.nailer.charAt(0)}
                                                 </div>
                                                 <span className="font-medium text-gray-700">{sale.nailer}</span>
@@ -123,7 +123,7 @@ export default function SalesTable({ sales, onEdit, onDelete }: Props) {
                                         {/* Cliente */}
                                         <td className="p-3">
                                             {clientData ? (
-                                                <span className="text-sm text-gray-700 hover:text-pink-600 transition-colors cursor-pointer font-medium">
+                                                <span className="text-sm text-gray-700 hover:text-babyblue-600 transition-colors cursor-pointer font-medium">
                                                     {clientData.nombres.split(' ')[0]} {clientData.apellidos.split(' ')[0]}
                                                 </span>
                                             ) : (

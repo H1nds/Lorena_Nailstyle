@@ -1,4 +1,4 @@
-/* src/App.css */
+Ôªø/* src/App.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,14 +6,14 @@
 :root {
     --font-heading: 'Playfair Display', serif;
     --font-body: 'DM Sans', sans-serif;
-    --primary-rose: #be185d;
-    --soft-rose: #fce7f3;
+    --primary-babyblue: #0ea5e9;
+    --soft-babyblue: #e0f2fe;
 }
 
 body {
     font-family: var(--font-body);
-    /* Fondo un poco m·s suave para mejorar el contraste */
-    background: radial-gradient(circle at 0% 0%, #fff1f2 0%, #fff 100%);
+    /* Fondo un poco m√°s suave para mejorar el contraste */
+    background: radial-gradient(circle at 0% 0%, #f0f9ff 0%, #fff 100%);
     color: #374151;
     overflow-x: hidden;
 }
@@ -33,13 +33,13 @@ h1, h2, h3, h4, h5, h6 {
 /* Para paneles de fondo grandes (como el dashboard) */
 .glass-panel {
     @apply glass-base;
-    background: rgba(255, 255, 255, 0.75); /* M·s opaco que antes */
+    background: rgba(255, 255, 255, 0.75); /* M√°s opaco que antes */
 }
 
-/* Para MODALES y formularios (M·xima legibilidad) */
+/* Para MODALES y formularios (M√°xima legibilidad) */
 .glass-modal {
     @apply glass-base;
-    background: rgba(255, 255, 255, 0.95) !important; /* Casi blanco sÛlido */
+    background: rgba(255, 255, 255, 0.95) !important; /* Casi blanco s√≥lido */
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Sombra potente para separar del fondo */
 }
 
@@ -55,12 +55,12 @@ h1, h2, h3, h4, h5, h6 {
         transform: translateY(-3px) scale(1.01);
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         background: #ffffff;
-        border-color: var(--soft-rose);
+        border-color: var(--soft-babyblue);
     }
 
 .bg-brand-mesh {
-    /* Capa 1: Un degradado suave de blanco a rosa claro semi-transparente */
-    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.85), rgba(251, 207, 232, 0.75)),
+    /* Capa 1: Un degradado suave de blanco a azul bebe claro semi-transparente */
+    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.85), rgba(224, 242, 254, 0.75)),
     /* Capa 2: Tu imagen original debajo */
     url('/bg-mesh.png');
     background-size: cover;

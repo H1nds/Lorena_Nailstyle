@@ -1,4 +1,4 @@
-﻿// src/components/Dashboard.tsx
+// src/components/Dashboard.tsx
 import { useState, useMemo } from "react";
 import { useSales } from "../hooks/useSales";
 import { useStoreSettings } from "../hooks/useStoreSettings";
@@ -109,8 +109,8 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
                 <header className="flex items-center justify-between mb-6">
                     <div>
                         <h2 className="text-2xl font-bold flex items-center gap-2 font-serif text-gray-800">
-                            Lorena Vera: Está en tus manos
-                            {isAdmin && <span className="text-xs bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Modo Administrador</span>}
+                            Panel de Administración
+                            {isAdmin && <span className="text-xs bg-gradient-to-r from-gold-600 to-gold-400 text-white px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Modo Administrador</span>}
                         </h2>
                     </div>
                     <div className="flex items-center gap-4"> {/* Aumentamos gap */}
@@ -120,7 +120,7 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
                                     <button
                                         onClick={() => setShowAdminPanel(true)}
                                         // ESTILO UNIFICADO: Botón circular blanco con sombra y hover de color
-                                        className="w-11 h-11 flex items-center justify-center rounded-full bg-white text-gray-700 shadow-sm border border-gray-100 hover:shadow-md hover:text-purple-600 hover:border-purple-200 transition-all hover:-translate-y-0.5"
+                                        className="w-11 h-11 flex items-center justify-center rounded-full bg-white text-gray-700 shadow-sm border border-gray-100 hover:shadow-md hover:text-babyblue-600 hover:border-babyblue-200 transition-all hover:-translate-y-0.5"
                                         title="Panel de Administrador"
                                     >
                                         <FaCogs size={20} />
@@ -130,7 +130,7 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
                                 <button
                                     onClick={() => setShowClientForm(true)}
                                     // ESTILO UNIFICADO (Color Ámbar/Amarillo)
-                                    className="w-11 h-11 flex items-center justify-center rounded-full bg-white text-amber-500 shadow-sm border border-gray-100 hover:shadow-md hover:text-amber-600 hover:border-amber-200 transition-all hover:-translate-y-0.5"
+                                    className="w-11 h-11 flex items-center justify-center rounded-full bg-white text-gold-500 shadow-sm border border-gray-100 hover:shadow-md hover:text-gold-600 hover:border-gold-200 transition-all hover:-translate-y-0.5"
                                     title="Registrar cliente rápido"
                                 >
                                     <FaUserPlus size={20} />
@@ -163,7 +163,7 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
                         {/* Botón de Cerrar Sesión (Color Rojo/Rosa) */}
                         <button
                             onClick={() => onLogout()}
-                            className="w-11 h-11 flex items-center justify-center rounded-full bg-white text-rose-500 shadow-sm border border-gray-100 hover:shadow-md hover:text-rose-600 hover:border-rose-200 transition-all hover:-translate-y-0.5"
+                            className="w-11 h-11 flex items-center justify-center rounded-full bg-white text-babyblue-500 shadow-sm border border-gray-100 hover:shadow-md hover:text-babyblue-600 hover:border-babyblue-200 transition-all hover:-translate-y-0.5"
                             title="Cerrar sesión"
                         >
                             <FaSignOutAlt size={20} />
@@ -205,17 +205,17 @@ export default function Dashboard({ user, onLogout }: { user: string; onLogout: 
                                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                                         <FaSearch className="h-5 w-5 text-gray-400" />
                                     </span>
-                                    <input type="text" placeholder="Buscar..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-300" />
+                                    <input type="text" placeholder="Buscar..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-babyblue-300" />
                                 </div>
 
                                 <div className="flex bg-white rounded-lg shadow-sm border overflow-hidden">
-                                    <button onClick={() => setTimeFilter('daily')} className={`p-2 px-3 flex items-center gap-2 text-sm transition-colors ${timeFilter === 'daily' ? 'bg-purple-100 text-purple-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`} title="Hoy"><FaCalendarDay /><span className="hidden xl:inline">Diario</span></button>
+                                    <button onClick={() => setTimeFilter('daily')} className={`p-2 px-3 flex items-center gap-2 text-sm transition-colors ${timeFilter === 'daily' ? 'bg-babyblue-100 text-babyblue-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`} title="Hoy"><FaCalendarDay /><span className="hidden xl:inline">Diario</span></button>
                                     <div className="w-[1px] bg-gray-200"></div>
-                                    <button onClick={() => setTimeFilter('weekly')} className={`p-2 px-3 flex items-center gap-2 text-sm transition-colors ${timeFilter === 'weekly' ? 'bg-purple-100 text-purple-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`} title="Esta semana"><FaCalendarWeek /><span className="hidden xl:inline">Semanal</span></button>
+                                    <button onClick={() => setTimeFilter('weekly')} className={`p-2 px-3 flex items-center gap-2 text-sm transition-colors ${timeFilter === 'weekly' ? 'bg-babyblue-100 text-babyblue-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`} title="Esta semana"><FaCalendarWeek /><span className="hidden xl:inline">Semanal</span></button>
                                     <div className="w-[1px] bg-gray-200"></div>
-                                    <button onClick={() => setTimeFilter('monthly')} className={`p-2 px-3 flex items-center gap-2 text-sm transition-colors ${timeFilter === 'monthly' ? 'bg-purple-100 text-purple-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`} title="Este mes"><FaCalendarAlt /><span className="hidden xl:inline">Mensual</span></button>
+                                    <button onClick={() => setTimeFilter('monthly')} className={`p-2 px-3 flex items-center gap-2 text-sm transition-colors ${timeFilter === 'monthly' ? 'bg-babyblue-100 text-babyblue-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`} title="Este mes"><FaCalendarAlt /><span className="hidden xl:inline">Mensual</span></button>
                                     <div className="w-[1px] bg-gray-200"></div>
-                                    <button onClick={() => setTimeFilter('all')} className={`p-2 px-3 flex items-center gap-2 text-sm transition-colors ${timeFilter === 'all' ? 'bg-purple-100 text-purple-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`} title="Ver todo"><FaLayerGroup /><span className="hidden xl:inline">Todos</span></button>
+                                    <button onClick={() => setTimeFilter('all')} className={`p-2 px-3 flex items-center gap-2 text-sm transition-colors ${timeFilter === 'all' ? 'bg-babyblue-100 text-babyblue-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`} title="Ver todo"><FaLayerGroup /><span className="hidden xl:inline">Todos</span></button>
                                 </div>
                             </div>
 

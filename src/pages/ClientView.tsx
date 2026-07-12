@@ -53,14 +53,14 @@ export default function ClientView({ onEdit }: Props) {
         let phone = client.phone.replace(/\D/g, '');
         if (!phone) { Toast.fire({ icon: 'warning', title: 'Sin número registrado' }); return; }
         if (phone.length === 9 && phone.startsWith('9')) phone = `51${phone}`;
-        const message = `Hola ${client.nombres} \uD83D\uDC4B, te saludamos de *Lorena Nailstyle*.\n\nTe escribimos para recordarte tu cita pendiente con nosotros. ¡Te esperamos! \uD83D\uDC85\u2728`;
+        const message = `Hola ${client.nombres} \uD83D\uDC4B, te saludamos de nuestro salón.\n\nTe escribimos para recordarte tu cita pendiente con nosotros. ¡Te esperamos! \uD83D\uDC85\u2728`;
         window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`, '_blank');
     };
 
     if (!clients || clients.length === 0) {
         return (
             <div className="glass-panel rounded-3xl p-12 text-center text-gray-400 flex flex-col items-center justify-center gap-4">
-                <FaUserCircle size={60} className="text-pink-200" />
+                <FaUserCircle size={60} className="text-babyblue-200" />
                 <p className="text-xl font-serif text-gray-600">Aún no hay clientes registrados</p>
                 <p className="text-sm">Comienza añadiendo uno desde el botón superior.</p>
             </div>
@@ -84,11 +84,11 @@ export default function ClientView({ onEdit }: Props) {
                         placeholder="Buscar por nombre, DNI o teléfono..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-300 bg-white/80 backdrop-blur-sm transition-all"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-babyblue-300 bg-white/80 backdrop-blur-sm transition-all"
                     />
                 </div>
 
-                <span className="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-md whitespace-nowrap">
+                <span className="bg-gradient-to-r from-gold-400 to-gold-600 text-white text-sm font-bold px-4 py-2 rounded-full shadow-md whitespace-nowrap">
                     {filteredClients.length} Resultados
                 </span>
             </div>
@@ -116,7 +116,7 @@ export default function ClientView({ onEdit }: Props) {
                                 >
                                     <td className="p-4 pl-6 rounded-l-2xl">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-rose-100 to-pink-200 border-2 border-white shadow-sm flex items-center justify-center text-rose-600 text-lg font-bold font-serif">
+                                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-100 to-gold-200 border-2 border-white shadow-sm flex items-center justify-center text-babyblue-600 text-lg font-bold font-serif">
                                                 {client.nombres.charAt(0)}{client.apellidos.charAt(0)}
                                             </div>
                                             <div>
@@ -142,7 +142,7 @@ export default function ClientView({ onEdit }: Props) {
                                                 <FaWhatsapp size={18} />
                                             </button>
 
-                                            <button onClick={() => handleEdit(client)} title="Editar" className="w-10 h-10 flex items-center justify-center rounded-full bg-amber-100 text-amber-600 hover:bg-amber-500 hover:text-white hover:shadow-md transition-all border border-amber-200 hover:border-transparent">
+                                            <button onClick={() => handleEdit(client)} title="Editar" className="w-10 h-10 flex items-center justify-center rounded-full bg-gold-100 text-gold-600 hover:bg-gold-500 hover:text-white hover:shadow-md transition-all border border-gold-200 hover:border-transparent">
                                                 <FaEdit size={18} />
                                             </button>
 

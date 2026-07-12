@@ -93,14 +93,14 @@ export default function PurchasesView() {
                     <p className="text-gray-500 text-sm mt-1">Administra inventario y gastos operativos</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-6 py-2 rounded-2xl shadow-lg shadow-purple-200 flex flex-col items-center">
+                <div className="bg-gradient-to-r from-gold-400 to-gold-600 text-white px-6 py-2 rounded-2xl shadow-lg shadow-gold-200/50 flex flex-col items-center">
                     <span className="text-[10px] uppercase tracking-widest opacity-80 font-bold">Gasto Total ({timeRange})</span>
                     <span className="text-2xl font-bold font-mono">S/. {totalSpent.toFixed(2)}</span>
                 </div>
 
                 <button
                     onClick={() => { setEditing(null); setShowModal(true); }}
-                    className="w-12 h-12 rounded-full bg-white text-purple-600 shadow-md border border-purple-100 hover:shadow-lg hover:bg-purple-50 transition-all flex items-center justify-center hover:-translate-y-1"
+                    className="w-12 h-12 rounded-full bg-white text-babyblue-600 shadow-md border border-babyblue-100 hover:shadow-lg hover:bg-babyblue-50 transition-all flex items-center justify-center hover:-translate-y-1"
                     title="Nueva Compra"
                 >
                     <FaPlus size={20} />
@@ -115,7 +115,7 @@ export default function PurchasesView() {
                         placeholder="Buscar producto, proveedor..."
                         value={search}
                         onChange={e => setSearch(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-gray-200 focus:ring-2 focus:ring-purple-300 outline-none text-sm"
+                        className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-gray-200 focus:ring-2 focus:ring-babyblue-300 outline-none text-sm"
                     />
                 </div>
 
@@ -129,7 +129,7 @@ export default function PurchasesView() {
                         <button
                             key={opt.k}
                             onClick={() => setTimeRange(opt.k as TimeRange)}
-                            className={`px-4 py-2 text-sm font-medium transition-colors border-r last:border-r-0 border-gray-100 ${timeRange === opt.k ? 'bg-purple-100 text-purple-700' : 'text-gray-500 hover:bg-gray-50'
+                            className={`px-4 py-2 text-sm font-medium transition-colors border-r last:border-r-0 border-gray-100 ${timeRange === opt.k ? 'bg-babyblue-100 text-babyblue-700' : 'text-gray-500 hover:bg-gray-50'
                                 }`}
                         >
                             {opt.l}
@@ -142,7 +142,7 @@ export default function PurchasesView() {
                     <select
                         value={catFilter}
                         onChange={e => setCatFilter(e.target.value)}
-                        className="w-full pl-8 pr-8 py-3 rounded-xl bg-white border border-gray-200 focus:ring-2 focus:ring-purple-300 outline-none text-sm appearance-none cursor-pointer"
+                        className="w-full pl-8 pr-8 py-3 rounded-xl bg-white border border-gray-200 focus:ring-2 focus:ring-babyblue-300 outline-none text-sm appearance-none cursor-pointer"
                     >
                         <option value="Todas">Todas las Categorías</option>
                         {uniqueCats.map(c => <option key={c} value={c}>{c}</option>)}
@@ -183,7 +183,7 @@ export default function PurchasesView() {
                                     <td className="p-4">
                                         <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide border ${p.category.includes("Servicios") ? "bg-yellow-50 text-yellow-600 border-yellow-200" :
                                                 p.category.includes("Insumos") ? "bg-blue-50 text-blue-600 border-blue-200" :
-                                                    "bg-purple-50 text-purple-600 border-purple-200"
+                                                    "bg-babyblue-50 text-babyblue-600 border-babyblue-200"
                                             }`}>
                                             {p.category.split(" ")[0]}
                                         </span>

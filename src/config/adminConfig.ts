@@ -1,6 +1,6 @@
 // src/adminConfig.ts
 
-export const ADMIN_EMAIL = "josymar.briceno@fbcisac.com";
+export const ADMIN_EMAIL = "lunaspamoq@gmail.com";
 
 export const DEFAULT_PERMISSIONS = {
     canEditSales: true,    // Empleado puede editar ventas

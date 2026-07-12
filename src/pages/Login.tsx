@@ -1,4 +1,4 @@
-﻿// src/components/Login.tsx
+// src/components/Login.tsx
 import { useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from '@/config/firebase';
@@ -43,13 +43,13 @@ export default function Login() {
             <div className="glass-panel rounded-[2.5rem] p-8 md:p-12 w-full max-w-md shadow-2xl border border-white/60 relative overflow-hidden z-10">
 
                 {/* Decoración de fondo */}
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-500 via-rose-500 to-purple-500"></div>
-                <div className="absolute -top-24 -right-24 w-48 h-48 bg-pink-400/20 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-400/20 rounded-full blur-3xl"></div>
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600"></div>
+                <div className="absolute -top-24 -right-24 w-48 h-48 bg-babyblue-400/20 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-babyblue-400/20 rounded-full blur-3xl"></div>
 
                 <div className="text-center mb-10 relative">
-                    <div className="w-20 h-20 bg-gradient-to-tr from-pink-500 to-rose-400 rounded-2xl flex items-center justify-center text-white font-bold text-4xl shadow-lg shadow-pink-200 font-serif mx-auto mb-6 rotate-3 ring-4 ring-white">
-                        L
+                    <div className="w-28 h-28 mx-auto mb-6 flex items-center justify-center">
+                        <img src="/logo.svg" alt="Logo del Salón" className="w-full h-full object-contain drop-shadow-2xl" />
                     </div>
                     <h2 className="text-3xl font-bold text-gray-800 font-serif mb-2">Bienvenido</h2>
                     <p className="text-gray-500 text-sm">Inicia sesión para gestionar tu salón</p>
@@ -60,7 +60,7 @@ export default function Login() {
                     <button
                         onClick={handleGoogle}
                         type="button"
-                        className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-100 p-4 rounded-xl text-gray-700 font-bold hover:bg-gray-50 hover:border-pink-200 hover:shadow-md transition-all group"
+                        className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-100 p-4 rounded-xl text-gray-700 font-bold hover:bg-gray-50 hover:border-babyblue-200 hover:shadow-md transition-all group"
                     >
                         <FaGoogle className="text-red-500 text-xl group-hover:scale-110 transition-transform" />
                         <span>Continuar con Google</span>
@@ -79,7 +79,7 @@ export default function Login() {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 outline-none transition-all font-medium"
+                                className="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none transition-all font-medium"
                                 placeholder="ejemplo@correo.com"
                                 required
                             />
@@ -93,7 +93,7 @@ export default function Login() {
                                     type={showPassword ? "text" : "password"}
                                     value={pass}
                                     onChange={(e) => setPass(e.target.value)}
-                                    className="w-full p-4 pr-12 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 outline-none transition-all font-medium"
+                                    className="w-full p-4 pr-12 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none transition-all font-medium"
                                     placeholder="••••••••"
                                     required
                                 />
@@ -101,7 +101,7 @@ export default function Login() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-pink-500 transition-colors focus:outline-none"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-babyblue-500 transition-colors focus:outline-none"
                                     tabIndex={-1} // Para que no moleste al tabular
                                 >
                                     {showPassword ? (
@@ -122,7 +122,7 @@ export default function Login() {
                                 <div className="animate-spin w-6 h-6 border-2 border-white border-t-transparent rounded-full" />
                             ) : (
                                 <>
-                                    <FaFingerprint className="text-pink-300" />
+                                    <FaFingerprint className="text-babyblue-300" />
                                     Acceder
                                 </>
                             )}
@@ -132,7 +132,7 @@ export default function Login() {
             </div>
 
             <div className="text-center text-gray-500 text-sm font-medium mt-4 z-10">
-                © {new Date().getFullYear()} Lorena Nailstyle. Sistema de Gestión.
+                © {new Date().getFullYear()} Sistema de Gestión.
             </div>
         </div>
     );

@@ -114,7 +114,7 @@ export default function NewClientForm({ onSaved, onCancel, initial = null }: Pro
         <div className="text-gray-700">
             {/* Título Dinámico */}
             <div className="flex items-center gap-4 mb-8 border-b border-gray-100 pb-4">
-                <div className={`p-3 rounded-full ${initial ? 'bg-amber-100 text-amber-600' : 'bg-pink-100 text-pink-600'}`}>
+                <div className={`p-3 rounded-full ${initial ? 'bg-gold-100 text-gold-600' : 'bg-babyblue-100 text-babyblue-600'}`}>
                     {initial ? <FaEdit size={24} /> : <FaUserCircle size={24} />}
                 </div>
                 <div>
@@ -135,7 +135,7 @@ export default function NewClientForm({ onSaved, onCancel, initial = null }: Pro
                             value={dni}
                             onChange={(e) => setDni(e.target.value.replace(/\D/g, "").slice(0, 8))}
                             placeholder="8 dígitos"
-                            className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-300 outline-none font-mono text-lg transition-all"
+                            className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold-300 outline-none font-mono text-lg transition-all"
                             maxLength={8}
                         // Si estamos editando, quizás quieras bloquear el DNI o permitir cambiarlo. Lo dejamos editable.
                         />
@@ -154,11 +154,11 @@ export default function NewClientForm({ onSaved, onCancel, initial = null }: Pro
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <label className="block">
                         <span className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-1 block">Nombres</span>
-                        <input value={nombres} onChange={(e) => setNombres(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-300 outline-none" />
+                        <input value={nombres} onChange={(e) => setNombres(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold-300 outline-none" />
                     </label>
                     <label className="block">
                         <span className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-1 block">Apellidos</span>
-                        <input value={apellidos} onChange={(e) => setApellidos(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-300 outline-none" />
+                        <input value={apellidos} onChange={(e) => setApellidos(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold-300 outline-none" />
                     </label>
                 </div>
 
@@ -168,7 +168,7 @@ export default function NewClientForm({ onSaved, onCancel, initial = null }: Pro
                         value={phone}
                         onChange={(e) => setPhone(e.target.value.replace(/[^\d+]/g, ""))}
                         placeholder="Ej. 912345678"
-                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-300 outline-none"
+                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold-300 outline-none"
                     />
                 </label>
 
@@ -188,8 +188,8 @@ export default function NewClientForm({ onSaved, onCancel, initial = null }: Pro
                         onClick={guardarCliente}
                         disabled={loading}
                         className={`px-8 py-3 rounded-full font-bold text-white shadow-lg transform hover:-translate-y-1 transition-all flex items-center gap-2 ${initial
-                                ? "bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 shadow-amber-200"
-                                : "bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 shadow-pink-200"
+                                ? "bg-gradient-to-r from-babyblue-400 to-babyblue-500 hover:from-babyblue-500 hover:to-babyblue-600 shadow-babyblue-200/50"
+                                : "bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 hover:from-gold-500 hover:via-gold-600 hover:to-gold-700 shadow-gold-200/50"
                             }`}
                     >
                         <FaSave /> {initial ? "Actualizar Datos" : "Guardar Cliente"}

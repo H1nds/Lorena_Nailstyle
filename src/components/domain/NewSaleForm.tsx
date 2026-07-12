@@ -153,7 +153,7 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
                     <h3 className="text-3xl font-bold font-serif text-gray-800">
                         {initial ? 'Editar Cita' : 'Nueva Cita'}
                     </h3>
-                    <div className="bg-pink-50 text-pink-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                    <div className="bg-babyblue-50 text-babyblue-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                         {initial ? 'Modificando' : 'Registrando'}
                     </div>
                 </div>
@@ -164,13 +164,13 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
                         <label className="block">
                             <span className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-1 block">Fecha y Hora</span>
                             <div className="relative">
-                                <input type="datetime-local" value={dateService} onChange={(e) => setDateService(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 outline-none transition-all font-medium" />
+                                <input type="datetime-local" value={dateService} onChange={(e) => setDateService(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none transition-all font-medium" />
                                 <FaCalendarAlt className="absolute right-3 top-3.5 text-gray-400 pointer-events-none" />
                             </div>
                         </label>
                         <label className="block">
                             <span className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-1 block">Nailer</span>
-                            <select value={nailer} onChange={(e) => setNailer(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 outline-none transition-all font-medium appearance-none">
+                            <select value={nailer} onChange={(e) => setNailer(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none transition-all font-medium appearance-none">
                                 {PRE_NAILERS.map(n => <option key={n} value={n}>{n}</option>)}
                             </select>
                         </label>
@@ -185,7 +185,7 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
                                     value={clientDni}
                                     onChange={(e) => setClientDni(e.target.value.replace(/\D/g, '').slice(0, 8))}
                                     placeholder="Ingrese 8 dígitos"
-                                    className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 outline-none"
+                                    className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none"
                                     maxLength={8}
                                 />
                                 <button type="button" onClick={() => buscarClienteEnDB(clientDni)} className="w-12 h-12 flex items-center justify-center rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors">
@@ -204,7 +204,7 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
 
                         <label className="block">
                             <span className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-1 block">Método de Pago</span>
-                            <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 outline-none transition-all font-medium">
+                            <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none transition-all font-medium">
                                 {PAYMENT_METHODS.map(m => <option key={m} value={m}>{m}</option>)}
                             </select>
                         </label>
@@ -213,10 +213,10 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
                     {/* Servicios */}
                     <div>
                         <span className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-1 block">Servicio</span>
-                        <input className="w-full p-3 border border-gray-200 rounded-t-xl focus:ring-2 focus:ring-pink-300 outline-none" placeholder="Buscar servicio..." value={serviceQuery} onChange={(e) => setServiceQuery(e.target.value)} />
+                        <input className="w-full p-3 border border-gray-200 rounded-t-xl focus:ring-2 focus:ring-babyblue-300 outline-none" placeholder="Buscar servicio..." value={serviceQuery} onChange={(e) => setServiceQuery(e.target.value)} />
                         <div className="max-h-32 overflow-auto border border-t-0 border-gray-200 rounded-b-xl bg-gray-50">
                             {filteredServices.map(s => (
-                                <div key={s} onClick={() => { setServiceType(s); setServiceQuery(''); }} className={`p-2 px-3 hover:bg-pink-50 cursor-pointer text-sm ${serviceType === s ? 'bg-pink-100 text-pink-700 font-bold' : 'text-gray-600'}`}>
+                                <div key={s} onClick={() => { setServiceType(s); setServiceQuery(''); }} className={`p-2 px-3 hover:bg-babyblue-50 cursor-pointer text-sm ${serviceType === s ? 'bg-babyblue-100 text-babyblue-700 font-bold' : 'text-gray-600'}`}>
                                     {s}
                                 </div>
                             ))}
@@ -225,7 +225,7 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
 
                     <label className="block">
                         <span className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-1 block">Notas / Descripción</span>
-                        <textarea className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 outline-none resize-none h-20" value={description} onChange={(e) => setDescription(e.target.value)} />
+                        <textarea className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-babyblue-300 outline-none resize-none h-20" value={description} onChange={(e) => setDescription(e.target.value)} />
                     </label>
 
                     {/* Cálculos */}
@@ -265,7 +265,7 @@ export default function NewSaleForm({ onSave, onCancel, initial = null }: Props)
                                 <FaTimes /> Cancelar
                             </button>
                         )}
-                        <button type="submit" className="px-8 py-3 rounded-full font-bold text-white bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 shadow-lg shadow-pink-200 transform hover:-translate-y-1 transition-all flex items-center gap-2">
+                        <button type="submit" className="px-8 py-3 rounded-full font-bold text-white bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 hover:from-gold-500 hover:via-gold-600 hover:to-gold-700 shadow-lg shadow-gold-200/50 transform hover:-translate-y-1 transition-all flex items-center gap-2">
                             <FaSave /> {initial ? 'Guardar Cambios' : 'Registrar Cita'}
                         </button>
                     </div>
