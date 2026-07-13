@@ -1,4 +1,4 @@
-﻿/* src/App.css */
+/* src/App.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -60,9 +60,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .bg-brand-mesh {
     /* Capa 1: Un degradado suave de blanco a azul bebe claro semi-transparente */
-    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.85), rgba(224, 242, 254, 0.75)),
-    /* Capa 2: Tu imagen original debajo */
-    url('/bg-mesh.png');
+    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.85), rgba(224, 242, 254, 0.75));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -50,11 +50,21 @@ export default function ClientView({ onEdit }: Props) {
     };
 
     const handleWhatsApp = (client: Client) => {
-        let phone = client.phone.replace(/\D/g, '');
-        if (!phone) { Toast.fire({ icon: 'warning', title: 'Sin número registrado' }); return; }
+        if (!client.phone) {
+            Toast.fire({ icon: 'warning', title: 'Sin número registrado' });
+            return;
+        }
+        let phone = String(client.phone).replace(/\D/g, '');
+        if (!phone) { Toast.fire({ icon: 'warning', title: 'Sin número válido' }); return; }
         if (phone.length === 9 && phone.startsWith('9')) phone = `51${phone}`;
         const message = `Hola ${client.nombres} \uD83D\uDC4B, te saludamos de nuestro salón.\n\nTe escribimos para recordarte tu cita pendiente con nosotros. ¡Te esperamos! \uD83D\uDC85\u2728`;
-        window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`, '_blank');
+        
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        const win = window.open(url, '_blank');
+        // Si el navegador bloquea el pop-up, intentamos redirigir en la misma pestaña
+        if (!win) {
+            window.location.href = url;
+        }
     };
 
     if (!clients || clients.length === 0) {
