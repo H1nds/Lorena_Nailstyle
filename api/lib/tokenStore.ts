@@ -1,5 +1,5 @@
-﻿// api/lib/tokenStore.ts
-import { db } from './firebaseAdmin';
+// api/lib/tokenStore.ts
+import { db } from './firebaseAdmin.js';
 
 export type TokenRecord = {
     refresh_token?: string;
