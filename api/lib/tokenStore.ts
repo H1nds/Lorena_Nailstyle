@@ -1,5 +1,4 @@
-// api/lib/tokenStore.ts
-import { db } from './firebaseAdmin.js';
+﻿import { db, initError } from './firebaseAdmin.js';
 
 export type TokenRecord = {
     refresh_token?: string;
@@ -15,8 +14,7 @@ const COLLECTION_NAME = 'google_calendar_tokens';
 // Guarda el token asociado a un uid en Firestore
 export async function saveRefreshTokenForUid(uid: string, record: TokenRecord) {
     if (!db) {
-        console.error('Firestore (Admin) no está inicializado. No se puede guardar el token.');
-        throw new Error('Database no inicializada');
+        throw new Error('Database no inicializada: ' + initError);
     }
 
     const base = { ...record, createdAt: Date.now() };
@@ -32,7 +30,7 @@ export async function saveRefreshTokenForUid(uid: string, record: TokenRecord) {
 // Obtiene el token almacenado para un uid desde Firestore
 export async function getStoredTokenForUid(uid: string): Promise<TokenRecord | null> {
     if (!db) {
-        console.warn('Firestore (Admin) no está inicializado. No se puede leer el token.');
+        console.warn('Firestore (Admin) no está inicializado. No se puede leer el token. Error: ' + initError);
         return null;
     }
 
@@ -49,8 +47,7 @@ export async function getStoredTokenForUid(uid: string): Promise<TokenRecord | n
 // Elimina el token para un uid específico en Firestore
 export async function deleteTokenForUid(uid: string): Promise<boolean> {
     if (!db) {
-        console.error('Firestore (Admin) no está inicializado. No se puede borrar el token.');
-        throw new Error('Database no inicializada');
+        throw new Error('Database no inicializada: ' + initError);
     }
 
     try {
