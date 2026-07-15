@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { FaEdit, FaTrash, FaCreditCard, FaMoneyBillWave, FaMobileAlt } from "react-icons/fa";
 import type { Sale } from '@/types';
-import { calcSubtotal, calcTotalNailer } from '@/utils';
+import { calcSubtotal } from '@/utils';
 import { confirmAction } from '@/utils/swal';
 
 type Props = {
@@ -50,7 +50,6 @@ export default function SalesTable({ sales, onEdit, onDelete }: Props) {
                     <thead>
                         <tr className="text-left text-gray-400 text-xs uppercase tracking-wider">
                             <th className="pl-4 pb-2">Fecha</th>
-                            <th className="pb-2">Nailer</th>
                             <th className="pb-2">Servicio</th>
                             <th className="pb-2 text-center">Cant.</th>
                             <th className="pb-2 text-right">Monto</th>
@@ -86,16 +85,6 @@ export default function SalesTable({ sales, onEdit, onDelete }: Props) {
                                             </div>
                                         </td>
 
-                                        {/* Nailer con Avatar */}
-                                        <td className="p-3">
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gold-400 to-gold-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">
-                                                    {sale.nailer.charAt(0)}
-                                                </div>
-                                                <span className="font-medium text-gray-700">{sale.nailer}</span>
-                                            </div>
-                                        </td>
-
                                         <td className="p-3 text-gray-600 font-medium max-w-[200px] truncate">
                                             {sale.serviceType.split('-')[1] || sale.serviceType}
                                         </td>
@@ -108,9 +97,6 @@ export default function SalesTable({ sales, onEdit, onDelete }: Props) {
 
                                         <td className="p-3 text-right">
                                             <div className="font-bold text-gray-800 text-base">S/ {subtotal.toFixed(2)}</div>
-                                            <div className="text-[10px] text-green-500 font-medium">
-                                                Com: S/ {calcTotalNailer(sale).toFixed(2)}
-                                            </div>
                                         </td>
 
                                         {/* Badge de Pago */}
@@ -188,7 +174,6 @@ export default function SalesTable({ sales, onEdit, onDelete }: Props) {
                                         </div>
                                         <div className="text-right">
                                             <div className="font-bold text-gray-800 text-lg">S/ {subtotal.toFixed(2)}</div>
-                                            <div className="text-[10px] text-green-500 font-medium whitespace-nowrap">Com: S/ {calcTotalNailer(sale).toFixed(2)}</div>
                                         </div>
                                     </div>
                                     
@@ -197,12 +182,6 @@ export default function SalesTable({ sales, onEdit, onDelete }: Props) {
                                             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-gray-100 shadow-sm">
                                                 {getPaymentIcon(sale.paymentMethod)}
                                                 <span className="text-[10px] font-bold text-gray-600 uppercase tracking-wider">{sale.paymentMethod}</span>
-                                            </div>
-                                            <div className="flex items-center gap-1.5 bg-gold-50/50 px-2 py-1 rounded-full border border-gold-100">
-                                                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-gold-400 to-gold-500 flex items-center justify-center text-white text-[8px] font-bold">
-                                                    {sale.nailer.charAt(0)}
-                                                </div>
-                                                <span className="text-[10px] font-bold text-gold-700">{sale.nailer}</span>
                                             </div>
                                         </div>
                                         
