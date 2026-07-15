@@ -32,5 +32,8 @@ dist-ssr
 .vs/
 .vercel
 
-# Almacén de tokens de Google
+# Almacï¿½n de tokens de Google
 tokens.json
+
+# ContraseÃ±as
+lorena-ventas-firebase-adminsdk-fbsvc-5c057fa95e.json

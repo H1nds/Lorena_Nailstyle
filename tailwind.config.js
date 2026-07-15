@@ -3,6 +3,9 @@ module.exports = {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
         extend: {
+            fontFamily: {
+                serif: ['"Courier New"', 'Courier', 'monospace'],
+            },
             colors: {
                 babyblue: {
                     50: '#f0f9ff',

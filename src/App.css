@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 :root {
-    --font-heading: 'Playfair Display', serif;
+    --font-heading: 'Courier New', Courier, monospace;
     --font-body: 'DM Sans', sans-serif;
     --primary-babyblue: #0ea5e9;
     --soft-babyblue: #e0f2fe;
